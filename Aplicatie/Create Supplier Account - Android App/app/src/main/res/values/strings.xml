@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_supplier_account">Create supplier account</string>
+    <string name="fullName">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create">Create</string>
+    <string name="logo">Logo</string>
+</resources>

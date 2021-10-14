@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/adminElectrovalvesFrameLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="55dp"
+    android:background="@drawable/background5"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/supplier_electrovalves_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:divider="@color/text_default"
+        android:dividerHeight="1dp"
+        android:paddingStart="@dimen/activity_vertical_margin"
+        android:paddingEnd="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin" />
+</FrameLayout>

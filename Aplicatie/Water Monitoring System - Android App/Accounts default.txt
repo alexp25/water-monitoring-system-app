@@ -1,0 +1,7 @@
+SUPPLIER:
+USER: supplier@test.com
+PASS: Qwerty12
+
+CUSTOMER:
+USER: alexxchirita13@gmail.com
+PASS: Qwerty1234

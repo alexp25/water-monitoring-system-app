@@ -1,0 +1,192 @@
+<resources>
+
+    <string name="app_name">Water Monitoring System</string>
+
+    <!-- Navigation Bar -->
+    <string name="sensor_item">Sensors</string>
+    <string name="home_item">Home</string>
+    <string name="personal_information_item">Personal Data</string>
+    <string name="complaints_item">Requests/Complaints</string>
+    <string name="electrovalve_item">Electrovalves</string>
+    <string name="water_pump_item">Water Pump</string>
+    <string name="contact_item">App Support</string>
+    <string name="about_item">About App</string>
+    <string name="logout_item">Log Out</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Activities -->
+    <string name="title_login_fragment">LoginFragment</string>
+    <string name="title_register_fragment">RegisterFragment</string>
+    <string name="title_supplier_sensors_map_activity">Supplier Sensors Map</string>
+    <string name="title_supplier_electrovalve_activity">Supplier Electrovalve</string>
+    <string name="title_supplier_water_pump_activity">Supplier Water Pump</string>
+    <string name="title_about_app_activity">About App</string>
+    <string name="title_app_support_activity">App Support</string>
+    <string name="title_customer_dashboard_activity">Customer Dashboard</string>
+    <string name="title_customer_complaints_activity">Customer Complaints</string>
+    <string name="title_customer_personal_profile">Customer Personal Profile</string>
+    <string name="title_supplier_notifications_popup_window">Supplier Notifications PopUp Window</string>
+    <string name="title_notification_option_popup_window">Notification Option PopUp Window</string>
+    <string name="title_sensor_module_info_activity">Sensor Module Info</string>
+    <string name="title_sensor_channel_info_activity">Sensor Channel Info</string>
+    <string name="title_forget_password_activity">Forget Password</string>
+    <string name="title_utils_class">Utils Class</string>
+    <string name="title_activity_add_new_coordinates_for_existing_sensor">
+        AddNewCoordinatesForExistingSensor
+    </string>
+
+    <!-- Search Firebase field -->
+    <string name="customer_code_firebase_field">customerCode</string>
+    <string name="email_firebase_field">email</string>
+    <string name="sensor_id_field">sensorIdBundle</string>
+    <string name="latitude_field">latitudeBundle</string>
+    <string name="longitude_field">longitudeBundle</string>
+    <string name="customer_code_field">customerCodeBundle</string>
+    <string name="channel_id_field">channelIdBundle</string>
+    <string name="user_type">userType</string>
+    <string name="notification_id_field">notificationId</string>
+    <string name="notification_date_field">notificationDate</string>
+    <string name="notification_message_field">notificationMessage</string>
+    <string name="notification_is_read_field">notificationIsRead</string>
+    <string name="notification_type_field">notificationType</string>
+    <string name="notification_subject_field">notificationSubject</string>
+
+    <!-- Field -->
+    <string name="notifications">NOTIFICATIONS</string>
+    <string name="notifbell">notifBell</string>
+    <string name="redsquare">redsquare</string>
+    <string name="swipe_left_for_register">Swipe Left for Register</string>
+    <string name="swipe_right_for_login">Swipe Right for Login</string>
+    <string name="password">Password</string>
+    <string name="e_mail">Email</string>
+    <string name="latitude_edit_text_field">Latitude</string>
+    <string name="longitude_edit_text_field">Longitude</string>
+    <string name="customer_code_edit_text_field">Customer Code</string>
+    <string name="resetting_password">Type email for resetting password</string>
+    <string name="re_type_password">Re-type Password</string>
+    <string name="subject">Subject</string>
+    <string name="message">Message</string>
+    <string name="customer_code">Customer Code</string>
+    <string name="birthday_date">Birthday Date</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="your_name">Full Name</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="longitude">Long:</string>
+    <string name="longitude_">Long:</string>
+    <string name="latitude">Lat:</string>
+    <string name="sensor_data">Channel:</string>
+    <string name="module_data">Sensor:</string>
+    <string name="electrovalve_data">Electrovalve:</string>
+    <string name="customer_code_data">Customer:</string>
+    <string name="unit"> l/h</string>
+    <string name="notification_type">Message Type Select:</string>
+    <string name="subject_title">Subject:</string>
+    <string name="message_title">Message:</string>
+    <string name="notification_type_spinner_text">Message Type</string>
+    <string name="sensor_with_no_customer_spinner_text">Sensors</string>
+    <string name="from_field">From:</string>
+    <string name="switch_is_default_on">switch_is_default_on</string>
+    <string name="new_sensor_request_customer">New Sensor Request</string>
+    <string name="name_sensor_request_customer">Name: </string>
+    <string name="sensor_module_title">Sensor - Module ID:</string>
+    <string name="sensor_channel_title">; Channel ID:</string>
+    <string name="add_to_customer">Add Customer</string>
+    <string name="change_data_history_number">Get History</string>
+    <string name="customer_code_sensor_request_customer">CustomerCode: </string>
+    <string name="email_sensor_request_customer">Email: </string>
+    <string name="phone_number_sensor_request_customer">Phone Number: (</string>
+    <string name="forget_password_reset">Forget Password - Reset</string>
+    <string name="reset_password_subject">Reset password - Water Monitoring System App</string>
+    <string name="reset_password_body_part1">Hello,\n\nForget password section from Water Monitoring System was accessed!\nAs result, a new password has been generated for your Water Monitoring System account.\n\nNew login data:\nEmail: </string>
+    <string name="reset_password_body_part2">\nNew Password: </string>
+    <string name="reset_password_body_part3">\n\nFor any question or issue related to WMS application, please contact our support team:\n Email: </string>
+    <string name="reset_password_body_part4">\nPhone: </string>
+    <string name="reset_password_body_part5">\n\nThank you,\nWater Monitoring System Support</string>
+    <string name="auto_message_part1"><![CDATA[<< MESSAGE AUTOMATED GENERATED >>]]></string>
+    <string name="auto_message_part2">Good morning,\n\nPlease associate a sensor for the following customer:</string>
+
+    <!-- Spinner items for notifications types -->
+    <string-array name="notifications_types_array">
+        <item>Service Request</item>
+        <item>Complaint</item>
+    </string-array>
+
+    <!-- Buttons -->
+    <string name="update_data">Update data</string>
+    <string name="sensor_request">Sensor Request</string>
+    <string name="supplier_selected">SUPPLIER</string>
+    <string name="customer_selected">CUSTOMER</string>
+    <string name="open_selected">OPEN</string>
+    <string name="close_selected">CLOSE</string>
+    <string name="login">Login</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="register">Register</string>
+    <string name="update_password">Update Password</string>
+    <string name="set_pump_value">Set Pump Value</string>
+    <string name="forget_password">Forget the password? Click </string>
+    <string name="forget_password_2">HERE</string>
+    <string name="send">SEND</string>
+    <string name="back">BACK</string>
+    <string name="mark_as_read">Mark As Read</string>
+    <string name="mark_as_unread">Mark As Unread</string>
+    <string name="delete">Delete</string>
+    <string name="add">ADD</string>
+    <string name="close">CLOSE</string>
+
+    <!-- Images descriptions -->
+    <string name="logo">Logo</string>
+    <string name="no_description">no description</string>
+
+    <!-- Errors and Toast messages -->
+    <string name="error_retrieve_data">Error while trying to get data from database!</string>
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_invalid_password_length">Password too short! At least 6 characters.</string>
+    <string name="error_email_is_already_in_database">Email already exist in database</string>
+    <string name="error_invalid_password">The password must contains at least one digit, one uppercase letter and one lowercase letter</string>
+    <string name="error_old_new_password_match">The new password cannot be the same as old password</string>
+    <string name="error_field_required">Required field</string>
+    <string name="error_invalid_phone_number">Invalid phone number</string>
+    <string name="error_password_match">Passwords mismatch</string>
+    <string name="customer_code_exist">Customer code already exist in database!</string>
+    <string name="please_try_again">Please try again!!</string>
+    <string name="user_not_exit_in_database">This email does not exist in database!</string>
+    <string name="email_and_password_cannot_be_empty">Email and password fields cannot be empty!</string>
+    <string name="wrong_email_or_password_supplier">Wrong e-mail or password for supplier account!</string>
+    <string name="wrong_email_or_password_customer">Wrong e-mail or password for customer account!</string>
+    <string name="no_channel_available">No channel available for this sensor!</string>
+    <string name="no_sensor_data_into_database">No sensor data into database!</string>
+    <string name="no_notification_available">No notification available!</string>
+    <string name="water_pump_value_updated">Water pump value updated! </string>
+    <string name="water_pump_state_updated">Water pump state updated! New state:</string>
+    <string name="login_successfully">Login successfully!</string>
+    <string name="password_resetting_error">Invalid email for password resetting!</string>
+    <string name="password_resetting_successfully">The new password was sent via email!</string>
+    <string name="logout_successfully">Logout successfully!</string>
+    <string name="new_account_created">New account created! Please login</string>
+    <string name="customer_does_not_exist_into_database">Customer doesn\'t exist into database</string>
+    <string name="the_message_was_sent">The message was sent!</string>
+    <string name="the_message_was_not_sent">The message was NOT sent!</string>
+    <string name="customer_profile_data_updated">Customer profile data updated!</string>
+    <string name="customer_profile_password_updated">Customer profile password updated!</string>
+    <string name="email_not_found_into_database">Email not found into database!</string>
+    <string name="customer_profile_picture_updated">Customer profile picture updated!</string>
+    <string name="customer_complaints_content_title">Contact supplier via message</string>
+    <string name="contact_us_text">For any questions or issues about using this application, please contact us using the phone number or email address from above</string>
+    <string name="about_us">\n     App Name: Water Monitoring System\n     Version 1.0.0\n\n     This is a mobile application that represents the monitoring system of water distribution network. Because mobile phones are used in proportion 63% compared to only 37% for desktop media for access to internet or various applications, I think a mobile application would be much more useful, because the mobile phone is the only indispensable device in anyone\'s pocket people throughout the day. The application has two modes of use: the mode intended for the provider water (supplier) and the way intended for the ordinary citizen (customer) who is connected to the water service of the person just mentioned. In the way intended for the beneficiaries of the water network they may notice possible problems such as cracks, water quality, illegal connections or billing issues.</string>
+    <string name="about_app">About Water Monitoring System application</string>
+    <string name="contact_us">Contact us</string>
+    <string name="delete_notification_title">Delete notification</string>
+    <string name="electrovalve_info">Electrovalve info</string>
+    <string name="no_electrovalve_available">No electrovalve available!</string>
+
+    <string name="delete_notification_message">"Are you sure you want to delete this notification?"</string>
+    <string name="enter_value">Nr. Data</string>
+
+    <!-- Support contact -->
+    <string name="support_phone_number">(+40) 728 404 301</string>
+    <string name="support_email">watermonitoringsystem.app@gmail.com</string>
+
+</resources>

@@ -1,0 +1,49 @@
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_supplier"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:theme="@style/Theme.WaterMonitoringSystem">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp">
+
+        <RelativeLayout
+            android:id="@+id/notificationBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:id="@+id/notificationBellImg"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/notifbell"
+                android:src="@drawable/icon_notifications_bell" />
+
+            <ImageView
+                android:id="@+id/red_square"
+                android:layout_width="16dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="2dp"
+                android:contentDescription="@string/redsquare"
+                android:src="@drawable/shape_notifications_rounded_square" />
+
+            <TextView
+                android:id="@+id/notifications_number"
+                android:layout_width="16dp"
+                android:layout_height="18dp"
+                android:paddingStart="4dp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

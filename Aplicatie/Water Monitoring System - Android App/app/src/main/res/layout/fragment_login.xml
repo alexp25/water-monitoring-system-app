@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/loginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".authentication.LoginFragment"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:contentDescription="@string/logo"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logo"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/font_indigo_daisy"
+                android:gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="50sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginEmailInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_title"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/shape_edittext_custom"
+                    android:fontFamily="@font/font_roboto_regular"
+                    android:hint="@string/e_mail"
+                    android:inputType="textEmailAddress"
+                    android:padding="15dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginPasswordInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginEmailInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/shape_edittext_custom"
+                    android:fontFamily="@font/font_roboto_regular"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/loginPasswordInputLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/font_roboto_regular"
+                android:text="@string/login"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/forget_password_text_here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_login"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/forget_password_2"
+                android:textColor="@color/default_blue_light"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/forget_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_login"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="2dp"
+                android:layout_toStartOf="@id/forget_password_text_here"
+                android:gravity="center_horizontal"
+                android:text="@string/forget_password"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/switchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/forget_password_text"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/cSwitch"
+                    android:layout_width="@dimen/switch_track_admin_client_width"
+                    android:layout_height="@dimen/switch_track_admin_client_height"
+                    android:checked="true"
+                    android:switchMinWidth="@dimen/switch_track_admin_client_width"
+                    android:text="@string/supplier_selected"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="InOrMmUsage,UseSwitchCompatOrMaterialXml" />
+
+
+                <!-- asta trebuie sters si pus text direct pe switch -->
+                <TextView
+                    android:id="@+id/cSwitch_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2mm"
+                    android:layout_marginEnd="2mm"
+                    android:text="@string/switch_is_default_on"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/cSwitch"
+                    app:layout_constraintLeft_toLeftOf="@+id/cSwitch"
+                    app:layout_constraintTop_toTopOf="@id/cSwitch"
+                    tools:ignore="InOrMmUsage" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/shape_icon_arrow_right_Id"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/switchLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/no_description"
+                android:src="@drawable/shape_icon_arrow_right" />
+
+            <TextView
+                android:id="@+id/swipeRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shape_icon_arrow_right_Id"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/font_roboto_regular"
+                android:text="@string/swipe_left_for_register"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </FrameLayout>
+</ScrollView>

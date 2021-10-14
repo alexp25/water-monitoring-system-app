@@ -1,0 +1,4 @@
+CreateNewSupplierAccount
+	- This application is used to create account for supplier
+	- It is designed like this, a separate application, in order to give the permission to create supplier account only for application's administrators
+	- The customers of the Water Monitoring System application can create their account from the WMS application

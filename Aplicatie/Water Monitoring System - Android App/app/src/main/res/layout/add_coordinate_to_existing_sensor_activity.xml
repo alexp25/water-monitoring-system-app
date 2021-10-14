@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background5"
+        android:padding="30dp"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        tools:context=".activities.supplier.AddCoordinateToExistingSensor">
+
+
+        <TextView
+            android:id="@+id/sensors_no_customer_spinner_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/sensor_with_no_customer_spinner_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/dark_blue" />
+
+        <Spinner
+            android:id="@+id/sensors_no_customer_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sensors_no_customer_spinner_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            android:text="@string/sensor_with_no_customer_spinner_text"
+            tools:targetApi="p" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/latitudeTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sensors_no_customer_spinner"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="@dimen/row_spacing">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/latitude_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_field_height"
+                android:autofillHints="@string/birthday_date"
+                android:background="@drawable/shape_edittext_custom"
+                android:fontFamily="@font/font_roboto_regular"
+                android:hint="@string/latitude_edit_text_field"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/register_text_padding"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_default"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/longitudeTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/latitudeTextInputLayout"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="@dimen/row_spacing">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/longitude_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_field_height"
+                android:autofillHints="@string/birthday_date"
+                android:background="@drawable/shape_edittext_custom"
+                android:fontFamily="@font/font_roboto_regular"
+                android:hint="@string/longitude_edit_text_field"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/register_text_padding"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_default"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/customerCodeTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/longitudeTextInputLayout"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="@dimen/row_spacing">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/customer_code_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_field_height"
+                android:autofillHints="@string/birthday_date"
+                android:background="@drawable/shape_edittext_custom"
+                android:fontFamily="@font/font_roboto_regular"
+                android:hint="@string/customer_code_edit_text_field"
+                android:inputType="number"
+                android:padding="@dimen/register_text_padding"
+                android:textColor="@color/dark_blue"
+                android:textColorHint="@color/text_default"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customerCodeTextInputLayout"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/sensor_for_customer_add_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button_gradient_blue_black"
+                android:fontFamily="@font/font_roboto_regular"
+                android:padding="6dp"
+                android:text="@string/add"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/sensor_for_customer_close_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button_gradient_blue_black"
+                android:fontFamily="@font/font_roboto_regular"
+                android:padding="6dp"
+                android:text="@string/close"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

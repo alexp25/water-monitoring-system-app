@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="55dp"
+    android:background="@drawable/background5"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.example.watermonitoringsystem.activities.customer.CustomerComplaintsActivity"
+        tools:showIn="@layout/customer_complaints_app_bar">
+
+        <TextView
+            android:id="@+id/complaints_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/customer_complaints_content_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/dark_blue"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/complaints_spinner_message_type_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/complaints_title"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/notification_type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/dark_blue" />
+
+        <Spinner
+            android:id="@+id/complaints_spinner_message_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/complaints_spinner_message_type_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            android:text="@string/notification_type_spinner_text" />
+
+
+        <TextView
+            android:id="@+id/complaints_subject_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/complaints_spinner_message_type"
+            android:layout_gravity="center"
+            android:layout_marginTop="65dp"
+            android:text="@string/subject_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/dark_blue" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/complaints_subject_layer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/complaints_subject_text"
+            android:layout_marginTop="4dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/complaints_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edittext_custom"
+                android:fontFamily="@font/font_roboto_regular"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="500"
+                android:minLines="1"
+                android:padding="12dp"
+                android:scrollbars="none"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="@color/defaultTextColor"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/complaints_message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/complaints_subject_layer"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:text="@string/message_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/dark_blue" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/complaints_message_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/complaints_message_text"
+            android:layout_marginTop="4dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/complaints_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edittext_custom"
+                android:fontFamily="@font/font_roboto_regular"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="500"
+                android:minLines="1"
+                android:padding="12dp"
+                android:scrollbars="none"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/complaints_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/complaints_message_layout"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_button_gradient_blue_black"
+            android:fontFamily="@font/font_roboto_regular"
+            android:padding="6dp"
+            android:text="@string/send"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+</ScrollView>

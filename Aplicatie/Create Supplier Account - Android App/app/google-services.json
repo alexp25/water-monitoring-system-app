@@ -1,0 +1,75 @@
+{
+  "project_info": {
+    "project_number": "889733325913",
+    "firebase_url": "https://watermonitoringsystem-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "watermonitoringsystem",
+    "storage_bucket": "watermonitoringsystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889733325913:android:9339020eb83f149ec83d48",
+        "android_client_info": {
+          "package_name": "com.example.watermonitoringsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889733325913-o35e3vjgqdiapufhlq90l7j9r1pseu72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUkeL-8JNyQGj9nKvNquWP9Irzc-JKh3g"
+        },
+        {
+          "current_key": "AIzaSyAnRrvIeFWZQh7T3JeNUZF441cVop9WtpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889733325913-o35e3vjgqdiapufhlq90l7j9r1pseu72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889733325913:android:e78e199dc93d0a47c83d48",
+        "android_client_info": {
+          "package_name": "com.watermonitoringsystem.createsupplieraccount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889733325913-o35e3vjgqdiapufhlq90l7j9r1pseu72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUkeL-8JNyQGj9nKvNquWP9Irzc-JKh3g"
+        },
+        {
+          "current_key": "AIzaSyAnRrvIeFWZQh7T3JeNUZF441cVop9WtpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889733325913-o35e3vjgqdiapufhlq90l7j9r1pseu72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

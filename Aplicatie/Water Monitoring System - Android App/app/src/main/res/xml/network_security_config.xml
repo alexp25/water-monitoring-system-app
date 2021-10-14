@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  Acest fisier XML a fost adaugat deoarece accesul la serverul NodeJS se face prin http iar de curand Android nu mai permite accesul decat prin https a sereverul.
+      Pentru a permite totusi acest lucru este nevoie sa fortam aplicati mobila sa permita traficul prin http -->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">http://ec2-3-66-146-88.eu-central-1.compute.amazonaws.com</domain>
+    </domain-config>
+</network-security-config>

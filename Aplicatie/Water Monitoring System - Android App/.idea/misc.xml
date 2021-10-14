@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/ioan.chirita/AppData/Local/Android/Sdk/platforms/android-29/data/res/layout/simple_spinner_item.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout-v28/add_sensor_to_customer.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/about_app_activity.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/about_app_app_bar.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/about_app_content.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/activity_add_new_coordinates_for_existing_sensor.xml" value="0.23854166666666668" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/activity_main.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/add_coordinate_to_existing_sensor_activity.xml" value="0.23854166666666668" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/add_sensor_to_customer.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/app_support_activity.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/app_support_app_bar.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/app_support_content.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/content_add_new_coordinates_for_existing_sensor.xml" value="0.23854166666666668" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/customer_complaints_activity.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/customer_complaints_content.xml" value="0.1743659420289855" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/customer_dashboard_content.xml" value="0.1743659420289855" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/customer_personal_profile_activity.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/customer_personal_profile_content.xml" value="0.18070652173913043" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/fragment_register.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/item_custom_complaints_spinner.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/item_electrovalve.xml" value="0.67" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/item_notifications.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/item_sensors_channels.xml" value="0.1953125" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/item_sensors_module.xml" value="0.18070652173913043" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/navigation_header.xml" value="0.165625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/notification_options.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/sensors_channel_info_activity.xml" value="0.18070652173913043" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/sensors_channel_info_content.xml" value="0.182518115942029" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/sensors_module_info_content.xml" value="0.18070652173913043" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_electrovalve_app_bar.xml" value="0.1953125" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_electrovalve_content.xml" value="0.1953125" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_notification.xml" value="0.1609375" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_notifications_all.xml" value="0.1609375" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_sensors_app_bar.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_sensors_content.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_water_pump_activity.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_water_pump_app_bar.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/supplier_water_pump_content.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/toolbar_customer.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/layout/toolbar_supplier.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/menu/navigation_drawer_customer.xml" value="0.15625" />
+        <entry key="..\:/Users/ioan.chirita/Desktop/research/Aplicatie/Water Monitoring System - Android App/app/src/main/res/menu/navigation_drawer_supplier.xml" value="0.15625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

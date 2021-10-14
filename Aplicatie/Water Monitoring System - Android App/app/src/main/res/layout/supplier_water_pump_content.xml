@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/adminPumpLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/background5"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/switchPumpLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            tools:ignore="RelativeOverlap">
+
+            <Switch
+                android:id="@+id/pump_switch"
+                android:layout_width="@dimen/switch_track_open_close_width"
+                android:layout_height="@dimen/switch_track_open_close_height"
+                android:layout_marginTop="40dp"
+                android:checked="true"
+                android:switchMinWidth="@dimen/switch_track_open_close_width"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                android:id="@+id/pump_switch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="2dp"
+                android:text="@string/open_selected"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_dimens_13sp"
+                app:layout_constraintBottom_toBottomOf="@id/pump_switch"
+                app:layout_constraintLeft_toLeftOf="@+id/pump_switch"
+                app:layout_constraintTop_toTopOf="@id/pump_switch" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.triggertrap.seekarc.SeekArc
+            android:id="@+id/pump_seekarc"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/switchPumpLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:padding="30dp"
+            android:progressDrawable="@drawable/shape_custom_seekbar"
+            android:rotation="180"
+            app:arcColor="@color/fade_red"
+            app:arcWidth="20dp"
+            app:max="100"
+            app:progressColor="@color/dark_red"
+            app:progressWidth="20dp"
+            app:startAngle="30"
+            app:sweepAngle="300"
+            app:touchInside="true" />
+
+        <TextView
+            android:id="@+id/pump_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="215dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/dark_blue"
+            android:textSize="@dimen/pump_value_50sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_update_pump_value"
+            android:layout_width="140sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pump_seekarc"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_button_gradient_blue_black"
+            android:fontFamily="@font/font_roboto_regular"
+            android:text="@string/set_pump_value"
+            android:textColor="@android:color/white" />
+
+
+
+    </RelativeLayout>
+</ScrollView>

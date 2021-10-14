@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_sensor_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        layout="@layout/sensors_module_info_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view_sensor_info"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/background7"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.WaterMonitoringSystem"
+        app:headerLayout="@layout/navigation_header"
+        app:itemBackground="@android:color/transparent"
+        app:itemIconTint="@color/menu_item_colors_when_pressed"
+        app:itemTextColor="@color/menu_item_colors_when_pressed" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

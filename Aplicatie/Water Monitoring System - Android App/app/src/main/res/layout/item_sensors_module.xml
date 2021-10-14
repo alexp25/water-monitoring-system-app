@@ -1,0 +1,167 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:paddingStart="5dp"
+    android:paddingTop="13dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="13dp">
+
+    <LinearLayout
+        android:id="@+id/firstModulesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/moduleIdLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/module_picture"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/no_description"
+                android:src="@drawable/icon_wifi_module" />
+
+            <TextView
+                android:id="@+id/module_id_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="@string/module_data"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/module_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/customerCodeLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:id="@+id/customer_code_picture"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:contentDescription="@string/no_description" />
+
+            <TextView
+                android:id="@+id/customer_code_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginStart="3dp"
+                android:text="@string/customer_code_data"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_dimens_13sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/customer_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_dimens_13sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/gps_coordinate_picture"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="3dp"
+            android:contentDescription="@string/no_description"
+            android:src="@drawable/icon_google_maps" />
+
+        <TextView
+            android:id="@+id/gps_coordinate_latitude_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:text="@string/latitude"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/small_dimens_13sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/gps_coordinate_latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="2dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/small_dimens_13sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/gps_coordinate_longitude_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/longitude_"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/small_dimens_13sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/gps_coordinate_longitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="2dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/small_dimens_13sp"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

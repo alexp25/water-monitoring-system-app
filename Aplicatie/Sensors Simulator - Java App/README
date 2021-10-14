@@ -1,0 +1,3 @@
+Sensors Simulators
+  - is a simple Java project used to send random "sensors" data to MQTT broker, in order to test the correctness and the functionality of the main application, Water Monitoring System
+  
