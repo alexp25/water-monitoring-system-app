@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.mqtt.MqttSenderThread;
 import com.example.watermonitoringsystem.utils.Constants;
@@ -83,7 +84,7 @@ public class SupplierWaterPumpActivity extends AppCompatActivity
         TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
-        String email = Utils.getValueFromSharedPreferences(Constants.keyEmail, SupplierWaterPumpActivity.this);
+        String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SupplierWaterPumpActivity.this);
         Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
 
         // Get notifications number
@@ -164,7 +165,6 @@ public class SupplierWaterPumpActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
 

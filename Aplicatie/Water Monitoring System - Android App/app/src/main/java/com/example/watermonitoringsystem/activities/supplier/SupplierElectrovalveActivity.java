@@ -1,7 +1,5 @@
 package com.example.watermonitoringsystem.activities.supplier;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,36 +21,21 @@ import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
 import com.example.watermonitoringsystem.adapters.ElectrovalvesAdapter;
-import com.example.watermonitoringsystem.adapters.SensorsAdapter;
-import com.example.watermonitoringsystem.api.ApiManager;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
-import com.example.watermonitoringsystem.models.MqttDataFormat;
-import com.example.watermonitoringsystem.models.app.ChannelsData;
 import com.example.watermonitoringsystem.models.app.ElectrovalvesData;
-import com.example.watermonitoringsystem.models.app.SensorData;
-import com.example.watermonitoringsystem.models.sqldb.CurrentSensorData;
-import com.example.watermonitoringsystem.models.sqldb.RegisteredRawElementsData;
-import com.example.watermonitoringsystem.models.sqldb.RegisteredElementData;
-import com.example.watermonitoringsystem.models.sqldb.Topic;
-import com.example.watermonitoringsystem.mqtt.MqttConstants;
-import com.example.watermonitoringsystem.utils.Constants;
 import com.example.watermonitoringsystem.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Electrovalves activity
@@ -94,7 +77,7 @@ public class SupplierElectrovalveActivity extends AppCompatActivity
         TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
-        String email = Utils.getValueFromSharedPreferences(Constants.keyEmail, SupplierElectrovalveActivity.this);
+        String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SupplierElectrovalveActivity.this);
         Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
 
         // Get notifications number
@@ -137,7 +120,6 @@ public class SupplierElectrovalveActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -158,7 +158,7 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
                 Log.e("API", "ERROR on calling ApiManager.addCoordinatesToSensor(). Error Message: " + t.getMessage());
             }
         };
-        ApiManager.addCoordinatesToSensor(coordinatesData, callback);
+        ApiManager.addNewCoordinatesToSensor(coordinatesData, callback);
     }
 
     /**

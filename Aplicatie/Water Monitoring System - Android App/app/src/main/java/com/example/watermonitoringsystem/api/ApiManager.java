@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.api;
 
+import android.util.Log;
+
 import com.example.watermonitoringsystem.models.sqldb.CoordinateDataReturn;
 import com.example.watermonitoringsystem.models.sqldb.CoordinatesData;
 import com.example.watermonitoringsystem.models.sqldb.CurrentSensorData;
@@ -33,10 +35,11 @@ public class ApiManager {
     }
 
     public static void getChannelDataHistoryBySensorIdAndChannelId(int sensorId, int channelId, int limit, int mode, Callback<HistoryRawData> callback) {
+        Log.e("test", "Limit: " + limit + "mode: "+ mode);
         apiClient.getChannelDataHistoryBySensorIdAndChannelId(sensorId, channelId, limit, mode).enqueue(callback);
     }
 
-    public static void addCoordinatesToSensor(CoordinatesData coordinatesData, Callback<CoordinateDataReturn> callback) {
+    public static void addNewCoordinatesToSensor(CoordinatesData coordinatesData, Callback<CoordinateDataReturn> callback) {
         apiClient.addCoordinatesToSensor(coordinatesData).enqueue(callback);
     }
 }

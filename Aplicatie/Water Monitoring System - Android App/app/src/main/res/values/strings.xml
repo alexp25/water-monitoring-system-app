@@ -183,7 +183,7 @@
     <string name="no_electrovalve_available">No electrovalve available!</string>
 
     <string name="delete_notification_message">"Are you sure you want to delete this notification?"</string>
-    <string name="enter_value">Nr. Data</string>
+    <string name="limit">Limit</string>
 
     <!-- Support contact -->
     <string name="support_phone_number">(+40) 728 404 301</string>

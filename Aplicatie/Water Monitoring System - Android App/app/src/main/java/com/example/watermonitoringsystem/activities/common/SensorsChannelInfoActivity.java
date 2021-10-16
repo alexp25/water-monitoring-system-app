@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalv
 import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
 import com.example.watermonitoringsystem.api.ApiManager;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.models.sqldb.HistoryData;
 import com.example.watermonitoringsystem.models.sqldb.HistoryRawData;
 import com.example.watermonitoringsystem.utils.Constants;
@@ -56,12 +60,14 @@ import retrofit2.Response;
 public class SensorsChannelInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private String userType;
+    private String customerCode;
+    private int selectedMode;
     private int sensorId;
     private int channelId;
-    private String customerCode;
-    private GraphView graphView;
 
+    private GraphView graphView;
     private TextView historyDataNumberTxtView;
+    private Spinner selectionSpinner;
 
     private DataPoint minPoint;
     private DataPoint maxPoint;
@@ -75,7 +81,7 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userType = Utils.getValueFromSharedPreferences(Constants.keyUserType, SensorsChannelInfoActivity.this);
+        userType = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_USER_TYPE, SensorsChannelInfoActivity.this);
 
         setContentView(R.layout.sensors_channel_info_activity);
 
@@ -125,12 +131,12 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
         if (userType.equals(Constants.CUSTOMER)) {
-            String customerCode = Utils.getValueFromSharedPreferences(Constants.keyCustomerCode, SensorsChannelInfoActivity.this);
+            String customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, SensorsChannelInfoActivity.this);
             Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
         }
         // Only supplier has notifications bell
         else {
-            String email = Utils.getValueFromSharedPreferences(Constants.keyEmail, SensorsChannelInfoActivity.this);
+            String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SensorsChannelInfoActivity.this);
             Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
 
             // Get notifications number
@@ -157,16 +163,54 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
         historyDataNumberTxtView = findViewById(R.id.dataHistoryNumber);
         Button historyDataBtn = findViewById(R.id.btnChangeDataHistoryNumber);
 
+
+        // Creating the ArrayAdapter instance having the modes list
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this,
+                R.array.selection_mode_spinner, R.layout.item_mode_selection_spinner);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Getting the instance of Spinner
+        selectionSpinner = findViewById(R.id.modeSpinner);
+
+        //Setting the ArrayAdapter data on the Spinner
+        selectionSpinner.setAdapter(arrayAdapter);
+        selectionSpinner.setSelection(2); // default selection is lastTimeHour
+        selectedMode = 3;
+
+        selectionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: // lastCount selected
+                        selectedMode = Constants.LAST_COUNT_MODE;
+                        break;
+                    case 1: // lastTimeSecond selected
+                        selectedMode = Constants.LAST_TIME_SECONDS_MODE;
+                        break;
+                    case 2: //lastTimeHour selected
+                        selectedMode = Constants.LAST_TIME_HOURS_MODE;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         // Default number of data history
-        int defaultNumberOfDataHistory = 24;
+        int defaultNumberOfDataHistory = Constants.DEFAULT_LIMIT_GRAPHIC_DATA;
         historyDataNumberTxtView.setText(String.valueOf(defaultNumberOfDataHistory));
 
         // Get data from MySQL database and build the graphic
         int nrOfDefaultDataHistory = Integer.parseInt(historyDataNumberTxtView.getText().toString());
+
         getSensorsHistoryDataAndBuildGraphic(nrOfDefaultDataHistory);
 
         // Action when click on get history button -> Get from MySQL database the latest X registrations
-        historyDataBtn.setOnClickListener(v -> {
+        historyDataBtn.setOnClickListener(v ->
+
+        {
             int nrOfDataHistory = Integer.parseInt(historyDataNumberTxtView.getText().toString());
             graphView.removeAllSeries();
             getSensorsHistoryDataAndBuildGraphic(nrOfDataHistory);
@@ -218,7 +262,6 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
             startActivity(new Intent(this, AppSupportActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout_sensor_channel_info);
@@ -284,7 +327,7 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
             }
         };
 
-        ApiManager.getChannelDataHistoryBySensorIdAndChannelId(sensorId, channelId, nrOfDataHistory, Constants.LAST_TIME_HOURS_MODE, callback);
+        ApiManager.getChannelDataHistoryBySensorIdAndChannelId(sensorId, channelId, nrOfDataHistory, selectedMode, callback);
     }
 
     /**
@@ -299,7 +342,7 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
     }
 
     /**
-     * Convertion from list of points to array of points
+     * Conversion from list of points to array of points
      */
     @NonNull
     private DataPoint[] convertDataPointsListToArray(ArrayList<DataPoint> graphDataList) {

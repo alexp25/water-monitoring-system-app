@@ -1,12 +1,14 @@
 package com.example.watermonitoringsystem.utils;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +18,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.watermonitoringsystem.R;
+import com.example.watermonitoringsystem.activities.customer.CustomerPersonalProfileActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierNotificationsAllPopUpActivity;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.firebase.FirebaseConstants;
 import com.example.watermonitoringsystem.firebase.Storage;
@@ -30,6 +34,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,16 +50,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Utils implements MqttConstants, Constants {
 
-    public static void saveValueToSharedPreferences(String key, String value, Context context) {
-        SharedPreferences sp = context.getSharedPreferences("Token", Context.MODE_PRIVATE);
+    public static void saveValueToSharedPreferences(SharedPrefsKeys key, String value, Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.TOKEN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor Ed = sp.edit();
-        Ed.putString(key, value);
+        Ed.putString(key.getKeyValue(), value);
         Ed.apply();
     }
 
-    public static String getValueFromSharedPreferences(String key, Context context) {
-        SharedPreferences sp = context.getSharedPreferences("Token", Context.MODE_PRIVATE);
-        return sp.getString(key, "");
+    public static String getValueFromSharedPreferences(SharedPrefsKeys key, Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.TOKEN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        return sp.getString(key.getKeyValue(), "");
+    }
+
+    public static void clearSharedPreferences(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.TOKEN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor Ed = sp.edit();
+        Ed.clear();
+        Ed.apply();
     }
 
     public static String composeCustomerProfilePictureName(String customerCode, String customerFullName) {

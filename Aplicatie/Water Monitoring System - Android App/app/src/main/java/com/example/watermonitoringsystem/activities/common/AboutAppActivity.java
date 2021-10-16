@@ -21,6 +21,7 @@ import com.example.watermonitoringsystem.activities.customer.CustomerPersonalPro
 import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalveActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.utils.Constants;
 import com.example.watermonitoringsystem.utils.Utils;
 import com.google.android.material.appbar.AppBarLayout;
@@ -41,7 +42,7 @@ public class AboutAppActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String userType = Utils.getValueFromSharedPreferences(Constants.keyUserType, AboutAppActivity.this);
+        String userType = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_USER_TYPE, AboutAppActivity.this);
 
         setContentView(R.layout.about_app_activity);
 
@@ -92,12 +93,12 @@ public class AboutAppActivity extends AppCompatActivity implements NavigationVie
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
         if (userType.equals(Constants.CUSTOMER)) {
-            String customerCode = Utils.getValueFromSharedPreferences(Constants.keyCustomerCode, AboutAppActivity.this);
+            String customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, AboutAppActivity.this);
             Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
         }
         // Only supplier has notifications bell
         else {
-            String email = Utils.getValueFromSharedPreferences(Constants.keyEmail, AboutAppActivity.this);
+            String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, AboutAppActivity.this);
             Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
 
             // Get notifications number
@@ -141,7 +142,6 @@ public class AboutAppActivity extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(this, AppSupportActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
 

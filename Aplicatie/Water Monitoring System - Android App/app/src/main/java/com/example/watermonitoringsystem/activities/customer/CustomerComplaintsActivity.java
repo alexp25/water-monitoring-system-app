@@ -21,6 +21,7 @@ import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
 import com.example.watermonitoringsystem.adapters.MessageTypeSpinnerAdapter;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.models.firebasedb.NotificationData;
 import com.example.watermonitoringsystem.utils.Constants;
@@ -83,7 +84,7 @@ public class CustomerComplaintsActivity extends AppCompatActivity
         TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
-        customerCode = Utils.getValueFromSharedPreferences(Constants.keyCustomerCode, CustomerComplaintsActivity.this);
+        customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, CustomerComplaintsActivity.this);
 
         Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
 
@@ -133,7 +134,6 @@ public class CustomerComplaintsActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Reg
         String tag = "android:switcher:" + R.id.viewPager + ":" + 0;
         LoginFragment login = (LoginFragment) getSupportFragmentManager().findFragmentByTag(tag);
         assert login != null;
-        login.updateLoginData(newEmail, newPass);
+        login.updateLoginDataAfterRegistration(newEmail, newPass);
     }
 
     public class AuthenticationPagerAdapter extends FragmentPagerAdapter {

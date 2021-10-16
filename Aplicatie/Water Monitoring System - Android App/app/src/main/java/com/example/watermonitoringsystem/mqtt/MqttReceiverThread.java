@@ -73,7 +73,6 @@ public class MqttReceiverThread extends Thread implements MqttConstants {
                             long currentTimeOfRecvSensorCmd = Calendar.getInstance().getTimeInMillis();
                             if (currentTimeOfRecvSensorCmd - lastTimeOfRecvSensorCmd > THRESHOLD) {
                                 SensorsModuleInfoActivity.sensorsDataFromMQTT.set(mqttMessage.toString());
-                                Log.d("MQTT_RECV", "SENSORS: " + mqttMessage.toString());
                                 lastTimeOfRecvSensorCmd = currentTimeOfRecvSensorCmd;
                             }
                             break;

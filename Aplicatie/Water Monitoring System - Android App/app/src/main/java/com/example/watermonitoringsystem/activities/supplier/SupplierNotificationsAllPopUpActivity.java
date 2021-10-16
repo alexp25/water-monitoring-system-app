@@ -76,7 +76,7 @@ public class SupplierNotificationsAllPopUpActivity extends AppCompatActivity {
         // Update notifications data. Get notifications from Firebase database
         getNotificationsFromDatabase();
 
-        // Action on Simple Click on Notification List Item -> Open notification informations
+        // Action on Simple Click on Notification List Item -> Open notification information
         notificationsListView.setOnItemClickListener((parent, view12, position, id) -> openNotificationInfo(position, view12));
 
         // Action on Long Click on Notification List Item -> Open popup options (Mark As Read/Unread, Delete, Close)

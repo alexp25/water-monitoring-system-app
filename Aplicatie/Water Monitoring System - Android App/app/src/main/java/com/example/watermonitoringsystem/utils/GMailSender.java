@@ -51,7 +51,7 @@ public class GMailSender {
             mailSession = Session.getDefaultInstance(emailProperties, null);
             emailMessage = new MimeMessage(mailSession);
 
-            emailMessage.setFrom(new InternetAddress(ConfigMail.APP_EMAIL, ConfigMail.APP_EMAIL));
+            emailMessage.setFrom(new InternetAddress(ConfigMail.CONFIG_APP_EMAIL, ConfigMail.CONFIG_APP_EMAIL));
             emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
             emailMessage.setSubject(emailSubject);
             emailMessage.setText(emailBody);
@@ -67,7 +67,7 @@ public class GMailSender {
         try {
             transport = mailSession.getTransport("smtp");
 
-            transport.connect(emailHost, ConfigMail.APP_EMAIL, ConfigMail.APP_PASSWORD);
+            transport.connect(emailHost, ConfigMail.CONFIG_APP_EMAIL, ConfigMail.CONFIG_APP_PASSWORD);
             Log.i("GMail", "allrecipients: " + Arrays.toString(emailMessage.getAllRecipients()));
             transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
             transport.close();

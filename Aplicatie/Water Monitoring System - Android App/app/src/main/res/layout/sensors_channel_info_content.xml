@@ -45,24 +45,25 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="45dp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="7">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dataHistoryNumberLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="2"
+                android:textAlignment="center">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dataHistoryNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
-                    android:hint="@string/enter_value"
+                    android:hint="@string/limit"
                     android:inputType="number"
                     android:padding="@dimen/register_text_padding"
                     android:textAlignment="center"
@@ -71,16 +72,25 @@
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/modeSpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"/>
+
             <Button
                 android:id="@+id/btnChangeDataHistoryNumber"
                 android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="65dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="2"
                 android:background="@drawable/shape_button_gradient_blue_black"
                 android:fontFamily="@font/font_roboto_regular"
                 android:text="@string/change_data_history_number"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

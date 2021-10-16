@@ -23,6 +23,7 @@ import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
 import com.example.watermonitoringsystem.activities.common.SensorsModuleInfoActivity;
 import com.example.watermonitoringsystem.adapters.ModulesAdapter;
 import com.example.watermonitoringsystem.api.ApiManager;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.models.firebasedb.CustomerData;
 import com.example.watermonitoringsystem.models.app.SensorData;
@@ -95,7 +96,7 @@ public class CustomerDashboardActivity extends AppCompatActivity
         TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
-        currentCustomerCode = Utils.getValueFromSharedPreferences(Constants.keyCustomerCode, CustomerDashboardActivity.this);
+        currentCustomerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, CustomerDashboardActivity.this);
 
         Utils.getCustomerProfileFromDatabase(currentCustomerCode, txtName, txtEmail, imgProfile);
 
@@ -110,9 +111,7 @@ public class CustomerDashboardActivity extends AppCompatActivity
         // Init modules data
         getSensorsDataFromDatabases();
 
-        btnNoSensorAvailable.setOnClickListener(v -> {
-            sendNotificationForSensorRequest(currentCustomerCode);
-        });
+        btnNoSensorAvailable.setOnClickListener(v -> sendNotificationForSensorRequest(currentCustomerCode));
     }
 
 
@@ -137,7 +136,6 @@ public class CustomerDashboardActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -181,6 +179,7 @@ public class CustomerDashboardActivity extends AppCompatActivity
                     final Callback<RegisteredRawElementsData> callback = new Callback<RegisteredRawElementsData>() {
                         @Override
                         public void onResponse(@NonNull Call<RegisteredRawElementsData> call, Response<RegisteredRawElementsData> response) {
+                            assert response.body() != null;
                             Log.i("API", "Response Code for calling APIManager.getRegisteredSensors(): " + response.code() + "; Body: " + response.body().toString());
 
                             List<RegisteredElementData> registeredSensorsDataList = response.body().getData();

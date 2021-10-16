@@ -4,12 +4,7 @@ package com.example.watermonitoringsystem.utils;
  * @author Ioan-Alexandru Chirita
  */
 public interface Constants {
-
-    String keyUserType = "user_type";
-    String keyFullName = "full_name";
-    String keyEmail = "email";
-    String keyCustomerCode = "client_code";
-    String keyProfilePicture = "profile_picture";
+    String TOKEN_SHARED_PREFERENCES = "WMS-Application-Token-SharedPreferences";
 
     String SUPPLIER = "1";
     String CUSTOMER = "2";
@@ -27,6 +22,7 @@ public interface Constants {
 
     String MQTT_DATA_SEPARATOR = ",";
     int MIN_PASSWORD_LENGTH = 6;
+    int DEFAULT_LIMIT_GRAPHIC_DATA = 24;
 
     int LAST_COUNT_MODE = 1;
     int LAST_TIME_SECONDS_MODE = 2;

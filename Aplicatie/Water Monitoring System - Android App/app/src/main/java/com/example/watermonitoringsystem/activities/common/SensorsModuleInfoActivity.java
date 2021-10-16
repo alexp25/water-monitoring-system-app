@@ -27,6 +27,7 @@ import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapA
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
 import com.example.watermonitoringsystem.adapters.SensorsAdapter;
 import com.example.watermonitoringsystem.api.ApiManager;
+import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.models.app.ChannelsData;
 import com.example.watermonitoringsystem.models.MqttDataFormat;
 import com.example.watermonitoringsystem.models.sqldb.CurrentSensorData;
@@ -68,7 +69,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userType = Utils.getValueFromSharedPreferences(Constants.keyUserType, SensorsModuleInfoActivity.this);
+        userType = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_USER_TYPE, SensorsModuleInfoActivity.this);
 
         setContentView(R.layout.sensors_module_info_activity);
 
@@ -118,12 +119,12 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
         CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
         if (userType.equals(Constants.CUSTOMER)) {
-            String customerCode = Utils.getValueFromSharedPreferences(Constants.keyCustomerCode, SensorsModuleInfoActivity.this);
+            String customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, SensorsModuleInfoActivity.this);
             Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
         }
         // Only supplier has notifications bell
         else {
-            String email = Utils.getValueFromSharedPreferences(Constants.keyEmail, SensorsModuleInfoActivity.this);
+            String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SensorsModuleInfoActivity.this);
             Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
 
             // Get notifications number
@@ -155,7 +156,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
 
         // Update sensors data via MQTT subscriber
         sensorsDataFromMQTT.setSensorObserverInterface(data -> {
-            Log.e("SensorsModuleInfoActivity", data);
+            Log.d("SensorsModuleInfoActivity", data);
             updateSensorDataViaMQTT(data);
         });
     }
@@ -201,7 +202,6 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
             startActivity(new Intent(this, AppSupportActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            Toast.makeText(getApplicationContext(), R.string.logout_successfully, Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -98,7 +98,7 @@ public class ForgetPassword extends AppCompatActivity {
     }
 
     /**
-     * Update new password into Firabase database
+     * Update new password into Firebase database
      */
     private void updatePasswordIntoDatabase(String email, String newPassword) {
         Database.getCustomerEndpoint().addListenerForSingleValueEvent(new ValueEventListener() {
