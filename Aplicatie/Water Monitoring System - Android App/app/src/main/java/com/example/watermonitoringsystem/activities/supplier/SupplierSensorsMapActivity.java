@@ -1,19 +1,29 @@
 package com.example.watermonitoringsystem.activities.supplier;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -30,13 +40,17 @@ import com.example.watermonitoringsystem.models.sqldb.RegisteredRawElementsData;
 import com.example.watermonitoringsystem.models.sqldb.RegisteredElementData;
 import com.example.watermonitoringsystem.mqtt.MqttConstants;
 import com.example.watermonitoringsystem.utils.Utils;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,8 +75,18 @@ import retrofit2.Response;
  */
 public class SupplierSensorsMapActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
+    private static final String TAG = SupplierSensorsMapActivity.class.getSimpleName();
+    private static final String MAP_CAMERA_POS_KEY = "com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity.map_camera_pos";
+    private static final String CAMERA_LAT_KEY = "camera_lat_key";
+    private static final String CAMERA_LON_KEY = "camera_lon_key";
+    private static final String CAMERA_ZOOM_KEY = "camera_zoom_key";
+    private boolean addSensorMode;
     private ArrayList<SensorData> sensorDataListForMap;
     private ArrayList<Marker> mMarkerArray;
+    private FloatingActionButton resetFab;
+    private FloatingActionButton addSensorFab;
+    private TextView addSensorTextView;
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,12 +134,43 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(SupplierSensorsMapActivity.this);
+
+        // Add sensor Text View
+        addSensorTextView = findViewById(R.id.addSensorTextView);
+
+        // FABs
+        addSensorFab = findViewById(R.id.addSensorFab);
+        addSensorFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSensorMode = !addSensorMode;
+                if(addSensorMode){
+                    addSensorTextView.setVisibility(View.VISIBLE);
+                    addSensorFab.setImageResource(R.drawable.ic_plus_highlighted);
+                }
+                else{
+                    addSensorTextView.setVisibility(View.INVISIBLE);
+                    addSensorFab.setImageResource(R.drawable.ic_plus);
+                }
+            }
+        });
+        resetFab = findViewById(R.id.resetFab);
+        resetFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetMapCameraPosition(true);
+            }
+        });
     }
+
 
     @Override
     public void onMapReady(@NotNull GoogleMap googleMap) {
         // Build sensors data list from MySQL database and Firebase Realtime Database
+        Log.e(TAG, "onMapReady called");
+        this.googleMap = googleMap;
         getModulesDataFromDatabases(googleMap);
+        setMapCameraPosition();
     }
 
     @Override
@@ -145,6 +200,68 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         DrawerLayout drawer = findViewById(R.id.drawer_layout_supplier_sensors);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveMapCameraPosition();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveMapCameraPosition();
+    }
+
+    /**
+     * Reset Map's Camera Position and Zoom to fit all available markers
+     * @author Mihai Draghici
+     */
+    private void resetMapCameraPosition(boolean animation){
+        if(googleMap == null || mMarkerArray.size() == 0)
+            return;
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for(Marker marker : mMarkerArray){
+            builder.include(marker.getPosition());
+        }
+        CameraUpdate cUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(), 250);
+        if(animation)
+            googleMap.animateCamera(cUpdate);
+        else
+            googleMap.moveCamera(cUpdate);
+        Log.i(TAG, "Camera moved to position: " + googleMap.getCameraPosition().toString());
+    }
+
+    private void setMapCameraPosition(){
+        if(googleMap == null){
+            Log.e(TAG, "Trying to setMapCameraPosition while googleMap is null");
+            return;
+        }
+        SharedPreferences sharedPref = this.getSharedPreferences(MAP_CAMERA_POS_KEY, Context.MODE_PRIVATE);
+        float lon = sharedPref.getFloat(CAMERA_LON_KEY, -1);
+        float lat = sharedPref.getFloat(CAMERA_LAT_KEY, -1);
+        float zoom = sharedPref.getFloat(CAMERA_ZOOM_KEY, -1);
+        Log.i(TAG, "Got SharedPref info: " + lon + ", " + lat + ", " + zoom + " (lon, lat, zoom)");
+        if(lon == -1 || lat == -1 || zoom == -1)
+            resetMapCameraPosition(false);
+        else{
+            CameraUpdate cUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), zoom);
+            googleMap.moveCamera(cUpdate);
+        }
+    }
+    private void saveMapCameraPosition(){
+        if(googleMap == null)
+            return;
+
+        CameraPosition cameraPosition = googleMap.getCameraPosition();
+        SharedPreferences sharedPref = this.getSharedPreferences(MAP_CAMERA_POS_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putFloat(CAMERA_LAT_KEY, (float)cameraPosition.target.latitude);
+        editor.putFloat(CAMERA_LON_KEY, (float)cameraPosition.target.longitude);
+        editor.putFloat(CAMERA_ZOOM_KEY, cameraPosition.zoom);
+        editor.apply();
     }
 
     /**
@@ -223,25 +340,14 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
      * Build Google map
      */
     private void buildGoogleMapsWithMarkers(@NonNull GoogleMap googleMap) {
-        double latitudeAverage = 0.0;
-        double longitudeAverage = 0.0;
-
         for (SensorData sensor : sensorDataListForMap) {
             LatLng place = new LatLng(sensor.getLatitude(), sensor.getLongitude());
-            latitudeAverage += sensor.getLatitude();
-            longitudeAverage += sensor.getLongitude();
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(place)
                     .title("SensorId: " + sensor.getSensorId() + "; CustomerCode: " + sensor.getCustomerCode())
             );
             mMarkerArray.add(marker);
         }
-
-        latitudeAverage /= sensorDataListForMap.size();
-        longitudeAverage /= sensorDataListForMap.size();
-
-        LatLng currentPosition = new LatLng(latitudeAverage, longitudeAverage);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 6.5f));
 
         // Action on long click on a marker => open sensor module's channels
         googleMap.setOnMapLongClickListener(latLng -> {
@@ -256,12 +362,15 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
 
         // Action on click on a marker => view centered on that marker and show the customerId and sensorId
         googleMap.setOnMarkerClickListener(marker -> {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
             return false;
         });
 
         // Action on click on map, not on a specific marker => open activity to configure sensors (add at selected coordinate a new sensor + optional the customerCode for it)
-        googleMap.setOnMapClickListener(latLng -> new AlertDialog.Builder(SupplierSensorsMapActivity.this).setTitle("Add new location")
+        googleMap.setOnMapClickListener(latLng -> {
+            if(!addSensorMode)
+                return;
+            new AlertDialog.Builder(SupplierSensorsMapActivity.this).setTitle("Add new location")
                 .setMessage("Are you sure you want to add a new location and a customer code for an existing sensor?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     Bundle b = new Bundle();
@@ -272,9 +381,10 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
                     Intent intent = new Intent(SupplierSensorsMapActivity.this, AddCoordinateToExistingSensor.class);
                     intent.putExtras(b);
                     startActivity(intent);
-                    finish();
+                    //finish();
                 })
-                .setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show());
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show();
+        });
     }
 
     /**
@@ -286,7 +396,7 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         b.putString(getString(R.string.sensor_id_field), moduleId);
         b.putString(getString(R.string.customer_code_field), customerCode);
         intent.putExtras(b);
-        finish();
+        //finish();
         startActivity(intent);
     }
 }
