@@ -35,6 +35,7 @@
     <string name="title_activity_add_new_coordinates_for_existing_sensor">
         AddNewCoordinatesForExistingSensor
     </string>
+    <string name="new_sensor_mode_message">Please select new sensor location</string>
 
     <!-- Search Firebase field -->
     <string name="customer_code_firebase_field">customerCode</string>
