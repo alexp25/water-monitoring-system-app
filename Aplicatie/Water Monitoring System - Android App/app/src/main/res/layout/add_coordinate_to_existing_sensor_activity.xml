@@ -25,25 +25,38 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/dark_blue" />
 
-        <Spinner
-            android:id="@+id/sensors_no_customer_spinner"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/sensorIdTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sensors_no_customer_spinner_text"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:outlineAmbientShadowColor="@color/colorPrimary"
-            android:outlineSpotShadowColor="@color/colorPrimary"
-            android:text="@string/sensor_with_no_customer_spinner_text"
-            tools:targetApi="p" />
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="@dimen/row_spacing">
+
+            <AutoCompleteTextView
+                android:id="@+id/sensors_no_customer_acTextView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/sensors_no_customer_spinner_text"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_edittext_custom"
+                android:clickable="true"
+                android:hint="Sensor Id"
+                android:padding="5dp"
+                android:textColorHint="@color/text_default"
+                android:completionThreshold="1"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
+                android:outlineSpotShadowColor="@color/colorPrimary"
+                tools:targetApi="p" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/latitudeTextInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sensors_no_customer_spinner"
+            android:layout_below="@+id/sensorIdTextInputLayout"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="@dimen/row_spacing">
 

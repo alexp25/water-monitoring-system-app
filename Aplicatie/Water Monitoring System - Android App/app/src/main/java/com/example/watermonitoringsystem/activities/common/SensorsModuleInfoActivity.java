@@ -63,6 +63,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
 
     private ListView sensorsListView;
     private TextView customerCodeLabel;
+    private TextView sensorIdLabel;
     private Button addCustomerCodeBtn;
 
     @Override
@@ -144,6 +145,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
 
         sensorsListView = findViewById(R.id.sensors_module_list_view);
         customerCodeLabel = findViewById(R.id.customerCodeLabel);
+        sensorIdLabel = findViewById(R.id.sensorIdLabel);
         addCustomerCodeBtn = findViewById(R.id.btnAddNewCustomer);
 
         sensorChannelsDataList = new ArrayList<>();
@@ -239,6 +241,10 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
                             customerCodeLabel.setText(text);
                             customerCodeLabel.setVisibility(View.VISIBLE);
                             addCustomerCodeBtn.setVisibility(View.INVISIBLE);
+
+                            text = getString(R.string.sensor_id_text) + ": " + sensorId;
+                            sensorIdLabel.setText(text);
+                            sensorIdLabel.setVisibility(View.VISIBLE);
 
                             // Sensors list adapter
                             sensorAdapter = new SensorsAdapter(sensorChannelsDataList, getApplicationContext());

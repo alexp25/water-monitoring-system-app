@@ -3,11 +3,9 @@ package com.example.watermonitoringsystem.activities.supplier;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +35,7 @@ import retrofit2.Response;
  */
 public class AddCoordinateToExistingSensor extends AppCompatActivity {
 
-    private Spinner sensorIdSpinner;
+    private AutoCompleteTextView sensorACIdTextView;
     private TextView latitudeEditTxtView;
     private TextView longitudeEditTxtView;
     private TextView customerCodeEditTxtView;
@@ -49,7 +47,7 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_coordinate_to_existing_sensor_activity);
 
-        sensorIdSpinner = findViewById(R.id.sensors_no_customer_spinner);
+        sensorACIdTextView = findViewById(R.id.sensors_no_customer_acTextView);
         latitudeEditTxtView = findViewById(R.id.latitude_edit_text);
         latitudeEditTxtView.setEnabled(false);
         longitudeEditTxtView = findViewById(R.id.longitude_edit_text);
@@ -65,21 +63,8 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
         latitudeEditTxtView.setText(String.valueOf(latitude));
         longitudeEditTxtView.setText(String.valueOf(longitude));
 
-        // Action when click on sensor's spinner item
-        sensorIdSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sensorIdSpinner.setSelection(position);
-                selectedSensorId = sensorIdAdapter.getItem(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
         // Add data to spinner
-        buildSensorIdSpinner();
+        buildSensorIdACTextView();
 
         // Action when click on Add button => Change sensors coordinate (or add new one) + add customer code to it (optional)
         sensorForCustomerAddBtn.setOnClickListener(v -> addCoordinatesAndCustomerCodeToDb());
@@ -96,7 +81,7 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
     /**
      * Get all sensors registered into MySQL database in order to build the sensors spinner
      */
-    private void buildSensorIdSpinner() {
+    private void buildSensorIdACTextView() {
 
         Callback<RegisteredRawElementsData> callback = new Callback<RegisteredRawElementsData>() {
             @Override
@@ -109,7 +94,7 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
                         sensorIdList.add(registeredSensorsData.getSensorId());
 
                         sensorIdAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, sensorIdList.toArray(new Integer[0]));
-                        sensorIdSpinner.setAdapter(sensorIdAdapter);
+                        sensorACIdTextView.setAdapter(sensorIdAdapter);
                     }
                 }
             }
