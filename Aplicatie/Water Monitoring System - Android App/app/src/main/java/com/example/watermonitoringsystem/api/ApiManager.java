@@ -7,6 +7,7 @@ import com.example.watermonitoringsystem.models.sqldb.CoordinatesData;
 import com.example.watermonitoringsystem.models.sqldb.CurrentSensorData;
 import com.example.watermonitoringsystem.models.sqldb.HistoryRawData;
 import com.example.watermonitoringsystem.models.sqldb.RegisteredRawElementsData;
+import com.example.watermonitoringsystem.models.sqldb.AllSensorsRealTimeDataResponse;
 
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -41,5 +42,9 @@ public class ApiManager {
 
     public static void addNewCoordinatesToSensor(CoordinatesData coordinatesData, Callback<CoordinateDataReturn> callback) {
         apiClient.addCoordinatesToSensor(coordinatesData).enqueue(callback);
+    }
+
+    public static void getAllSensorsRealTimeDataChannels(Callback<AllSensorsRealTimeDataResponse> callback){
+        apiClient.getAllSensorsRealTimeDataChannels().enqueue(callback);
     }
 }

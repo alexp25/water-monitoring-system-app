@@ -1,6 +1,7 @@
 
 package com.example.watermonitoringsystem.api;
 
+import com.example.watermonitoringsystem.models.sqldb.AllSensorsRealTimeDataResponse;
 import com.example.watermonitoringsystem.models.sqldb.CoordinateDataReturn;
 import com.example.watermonitoringsystem.models.sqldb.CoordinatesData;
 import com.example.watermonitoringsystem.models.sqldb.CurrentSensorData;
@@ -27,6 +28,10 @@ public interface ApiInterface {
 
     @GET("/sensors/data/get-current-data-snapshot")
     Call<CurrentSensorData> getSensorChannelsDataBySensorId(@Query("sensorId") int sensorId);
+
+    @GET("/sensors/data/get-current-data-snapshot")
+    Call<AllSensorsRealTimeDataResponse> getAllSensorsRealTimeDataChannels();
+
 
     @GET("/sensors/data/get-stored-data")
     Call<HistoryRawData> getChannelDataHistoryBySensorIdAndChannelId(@Query("sensorId") int sensorId,

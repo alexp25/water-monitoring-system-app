@@ -28,6 +28,16 @@
             android:layout_alignParentEnd="true"/>
 
         <TextView
+            android:id="@+id/sensorIdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customer_code_data"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
             android:id="@+id/customerCodeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +45,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/sensorIdLabel"/>
 
         <ListView
             android:id="@+id/sensors_module_list_view"

@@ -5,7 +5,9 @@ import android.util.Log;
 import com.example.watermonitoringsystem.mqtt.MqttConstants;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Ioan-Alexandru Chirita
@@ -15,6 +17,14 @@ public class MqttDataFormat {
     int sensorId;
     int command;
     List<Integer> channelValues;
+
+    public static MqttDataFormat ofIdValue(int sensorId){
+        MqttDataFormat result = new MqttDataFormat();
+        result.sensorId = sensorId;
+        return result;
+    }
+
+    public MqttDataFormat(){}
 
     public MqttDataFormat(String rawStringData) {
         buildSensorFormatData(rawStringData);
@@ -79,5 +89,18 @@ public class MqttDataFormat {
             channelValues.add(Integer.parseInt(tokens[i]));
         }
         Log.i("buildSensorFormatData", "NoteType:" + nodeType + "; NodeId:" + sensorId + "; CMD:" + command + "; Channels:" + channelValues.toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MqttDataFormat that = (MqttDataFormat) o;
+        return sensorId == that.sensorId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sensorId);
     }
 }

@@ -34,8 +34,10 @@ import com.example.watermonitoringsystem.activities.common.SensorsModuleInfoActi
 import com.example.watermonitoringsystem.api.ApiManager;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
+import com.example.watermonitoringsystem.models.MqttDataFormat;
 import com.example.watermonitoringsystem.models.app.SensorData;
 import com.example.watermonitoringsystem.models.firebasedb.SensorsPerCustomersData;
+import com.example.watermonitoringsystem.models.sqldb.AllSensorsRealTimeDataResponse;
 import com.example.watermonitoringsystem.models.sqldb.RegisteredRawElementsData;
 import com.example.watermonitoringsystem.models.sqldb.RegisteredElementData;
 import com.example.watermonitoringsystem.mqtt.MqttConstants;
@@ -62,6 +64,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -276,38 +279,54 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
                 assert response.body() != null;
                 Log.d("API", "Response Code for calling APIManager.getRegisteredSensors(): " + response.code() + "; Body: " + response.body().toString());
 
-                List<RegisteredElementData> registeredSensorsData = response.body().getData();
-                Log.d("API-Data", registeredSensorsData.toString());
-
-                // Build list of sensors from MySQL database
-                buildSensorsList(registeredSensorsData);
-
-                // Add customerCode from Firebase and and GPS coordinate from MySQL database
-                Database.getSensorsEndpoint().addListenerForSingleValueEvent(new ValueEventListener() {
+                final Callback<AllSensorsRealTimeDataResponse> callback2 = new Callback<AllSensorsRealTimeDataResponse>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.exists()) {
-                            Toast.makeText(getApplicationContext(), R.string.no_sensor_data_into_database, Toast.LENGTH_SHORT).show();
-                        } else {
-                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                                SensorsPerCustomersData sensorsPerCustomersDataFromDb = postSnapshot.getValue(SensorsPerCustomersData.class);
-                                assert sensorsPerCustomersDataFromDb != null;
-                                for (SensorData sensorData : sensorDataListForMap) {
-                                    assert sensorData != null;
-                                    if (sensorData.getSensorId() == sensorsPerCustomersDataFromDb.getSensorId()) {
-                                        sensorData.setCustomerCode(sensorsPerCustomersDataFromDb.getCustomerCode());
+                    public void onResponse(@NonNull Call<AllSensorsRealTimeDataResponse> call2,@NonNull Response<AllSensorsRealTimeDataResponse> response2) {
+                        assert response2.body() != null;
+
+                        List<RegisteredElementData> rawRegisteredSensorsData = response.body().getData();
+                        Log.d("API-Data", rawRegisteredSensorsData.toString());
+                        List<MqttDataFormat> realtimeSensorsData = response2.body().getParsedData();
+                        Log.d("API-Data", response2.body().toString());
+                        List<RegisteredElementData> registeredSensorsData = rawRegisteredSensorsData.stream().filter(x -> realtimeSensorsData.contains(MqttDataFormat.ofIdValue(x.getSensorId()))).collect(Collectors.toList());
+
+                        // Build list of sensors from MySQL database
+                        buildSensorsList(registeredSensorsData);
+
+                        // Add customerCode from Firebase and GPS coordinate from MySQL database
+                        Database.getSensorsEndpoint().addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (!snapshot.exists()) {
+                                    Toast.makeText(getApplicationContext(), R.string.no_sensor_data_into_database, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                        SensorsPerCustomersData sensorsPerCustomersDataFromDb = postSnapshot.getValue(SensorsPerCustomersData.class);
+                                        assert sensorsPerCustomersDataFromDb != null;
+                                        for (SensorData sensorData : sensorDataListForMap) {
+                                            assert sensorData != null;
+                                            if (sensorData.getSensorId() == sensorsPerCustomersDataFromDb.getSensorId()) {
+                                                sensorData.setCustomerCode(sensorsPerCustomersDataFromDb.getCustomerCode());
+                                            }
+                                        }
                                     }
+                                    buildGoogleMapsWithMarkers(googleMap);
                                 }
                             }
-                            buildGoogleMapsWithMarkers(googleMap);
-                        }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("Firebase DB", "Database.getSensorsEndpoint(). Error: " + error);
+                            }
+                        });
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("Firebase DB", "Database.getSensorsEndpoint(). Error: " + error);
+                    public void onFailure(@NonNull Call<AllSensorsRealTimeDataResponse> call, Throwable t) {
+                        Log.e("API", "ERROR on calling ApiManager.getAllSensorsRealTimeDataChannels(). Error Message: " + t.getMessage());
                     }
-                });
+                };
+                ApiManager.getAllSensorsRealTimeDataChannels(callback2);
             }
 
             @Override
@@ -349,21 +368,11 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
             mMarkerArray.add(marker);
         }
 
-        // Action on long click on a marker => open sensor module's channels
-        googleMap.setOnMapLongClickListener(latLng -> {
-            for (Marker marker : mMarkerArray) {
-                if (Math.abs(marker.getPosition().latitude - latLng.latitude) < 0.01 && Math.abs(marker.getPosition().longitude - latLng.longitude) < 0.01) {
-                    String[] markerSplitParts = Utils.getModuleIdAndCustomerCodeFromMarkerTitle(Objects.requireNonNull(marker.getTitle()));
-                    openSensorModuleInfo(markerSplitParts[0], markerSplitParts[1]);
-                    break;
-                }
-            }
-        });
-
         // Action on click on a marker => view centered on that marker and show the customerId and sensorId
         googleMap.setOnMarkerClickListener(marker -> {
-            googleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-            return false;
+            String[] markerSplitParts = Utils.getModuleIdAndCustomerCodeFromMarkerTitle(Objects.requireNonNull(marker.getTitle()));
+            openSensorModuleInfo(markerSplitParts[0], markerSplitParts[1]);
+            return true;
         });
 
         // Action on click on map, not on a specific marker => open activity to configure sensors (add at selected coordinate a new sensor + optional the customerCode for it)

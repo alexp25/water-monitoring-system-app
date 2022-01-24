@@ -69,6 +69,7 @@
     <string name="subject">Subject</string>
     <string name="message">Message</string>
     <string name="customer_code">Customer Code</string>
+    <string name="sensor_id_text">Sensor Id</string>
     <string name="birthday_date">Birthday Date</string>
     <string name="phone_number">Phone Number</string>
     <string name="your_name">Full Name</string>
