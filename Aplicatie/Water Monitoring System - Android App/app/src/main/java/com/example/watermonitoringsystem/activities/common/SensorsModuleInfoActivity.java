@@ -64,7 +64,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
     private ListView sensorsListView;
     private TextView customerCodeLabel;
     private TextView sensorIdLabel;
-    private Button addCustomerCodeBtn;
+    private Button setCustomerCodeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +146,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
         sensorsListView = findViewById(R.id.sensors_module_list_view);
         customerCodeLabel = findViewById(R.id.customerCodeLabel);
         sensorIdLabel = findViewById(R.id.sensorIdLabel);
-        addCustomerCodeBtn = findViewById(R.id.btnAddNewCustomer);
+        setCustomerCodeBtn = findViewById(R.id.btnAddNewCustomer);
 
         sensorChannelsDataList = new ArrayList<>();
 
@@ -163,17 +163,17 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent;
-        if (userType.equals(Constants.SUPPLIER)) {
-            intent = new Intent(this, SupplierSensorsMapActivity.class);
-        } else {
-            intent = new Intent(this, CustomerDashboardActivity.class);
-        }
-        finish();
-        startActivity(intent);
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Intent intent;
+//        if (userType.equals(Constants.SUPPLIER)) {
+//            intent = new Intent(this, SupplierSensorsMapActivity.class);
+//        } else {
+//            intent = new Intent(this, CustomerDashboardActivity.class);
+//        }
+//        finish();
+//        startActivity(intent);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -221,10 +221,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
             @Override
             public void onResponse(@NonNull Call<CurrentSensorData> call, Response<CurrentSensorData> response) {
                 assert response.body() != null;
-                if (response.body().getData() == null || response.body().getData().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), R.string.no_channel_available, Toast.LENGTH_LONG).show();
-                    onBackPressed();
-                } else {
+                if (response.body().getData() != null && !response.body().getData().isEmpty()) {
                     List<String> sensorDataList = response.body().getData();
                     for (String sensorData : sensorDataList) {
                         MqttDataFormat mqttDataFormat = new MqttDataFormat(sensorData);
@@ -240,7 +237,6 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
                             String text = getString(R.string.customer_code) + ": " + customerCode;
                             customerCodeLabel.setText(text);
                             customerCodeLabel.setVisibility(View.VISIBLE);
-                            addCustomerCodeBtn.setVisibility(View.INVISIBLE);
 
                             text = getString(R.string.sensor_id_text) + ": " + sensorId;
                             sensorIdLabel.setText(text);

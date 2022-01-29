@@ -35,7 +35,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/customerCodeLabel"
@@ -45,13 +45,14 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@id/sensorIdLabel"/>
 
         <ListView
             android:id="@+id/sensors_module_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/btnAddNewCustomer"
             android:layout_marginTop="10dp"
             android:divider="@color/text_default"
             android:dividerHeight="1dp"
@@ -59,7 +60,6 @@
             android:listSelector="@color/list_colors_when_pressed"
             android:paddingStart="@dimen/activity_vertical_margin"
             android:paddingEnd="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_horizontal_margin"
-            android:layout_below="@+id/btnAddNewCustomer"/>
+            android:paddingBottom="@dimen/activity_horizontal_margin" />
     </RelativeLayout>
 </FrameLayout>

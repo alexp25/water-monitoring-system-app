@@ -95,7 +95,7 @@
     <string name="name_sensor_request_customer">Name: </string>
     <string name="sensor_module_title">Sensor - Module ID:</string>
     <string name="sensor_channel_title">; Channel ID:</string>
-    <string name="add_to_customer">Add Customer</string>
+    <string name="add_to_customer">Set\nCustomer</string>
     <string name="change_data_history_number">Get History</string>
     <string name="customer_code_sensor_request_customer">CustomerCode: </string>
     <string name="email_sensor_request_customer">Email: </string>

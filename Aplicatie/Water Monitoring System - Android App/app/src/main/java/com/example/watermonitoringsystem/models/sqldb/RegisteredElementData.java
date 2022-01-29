@@ -14,6 +14,7 @@ public class RegisteredElementData {
     private Double lat;
     private Double lng;
     private Topic topic;
+    private boolean hasDataChannels;
 
     public RegisteredElementData() {
         super();
@@ -29,6 +30,14 @@ public class RegisteredElementData {
         this.lat = lat;
         this.lng = lng;
         this.topic = topic;
+    }
+
+    public boolean hasDataChannels() {
+        return hasDataChannels;
+    }
+
+    public void setHasDataChannels(boolean hasDataChannels) {
+        this.hasDataChannels = hasDataChannels;
     }
 
     public int getId() {
