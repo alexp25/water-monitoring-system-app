@@ -369,10 +369,9 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         }
 
         // Action on click on a marker => view centered on that marker and show the customerId and sensorId
-        googleMap.setOnMarkerClickListener(marker -> {
+        googleMap.setOnInfoWindowClickListener(marker -> {
             String[] markerSplitParts = Utils.getModuleIdAndCustomerCodeFromMarkerTitle(Objects.requireNonNull(marker.getTitle()));
             openSensorModuleInfo(markerSplitParts[0], markerSplitParts[1]);
-            return true;
         });
 
         // Action on click on map, not on a specific marker => open activity to configure sensors (add at selected coordinate a new sensor + optional the customerCode for it)
