@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sensorsPerModuleFrameLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,7 +10,7 @@
     android:orientation="vertical">
 
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/module_info_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,42 +19,104 @@
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_horizontal_margin">
 
-        <Button
-            android:id="@+id/btnAddNewCustomer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_to_customer"
-            android:background="@drawable/shape_button_gradient_blue_black"
-            android:fontFamily="@font/font_roboto_regular"
-            android:textColor="@android:color/white"
-            android:layout_alignParentEnd="true"/>
-
         <TextView
             android:id="@+id/sensorIdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sensor_id_label"
+            tools:text="Sensor:"
+            tools:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/sensorIdValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/customer_code_data"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:layout_alignParentStart="true" />
+            tools:text="12345"
+            tools:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@id/sensorIdLabel"
+            app:layout_constraintLeft_toRightOf="@id/sensorIdLabel"
+            android:layout_marginStart="5dp"/>
 
         <TextView
             android:id="@+id/customerCodeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/customer_code_data"
+            android:text="@string/customer_code_label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            tools:textStyle="bold"
+            android:labelFor="@id/customerCodeValue"
+
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@id/sensorIdLabel"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <EditText
+            android:id="@+id/customerCodeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="54321"
+            android:inputType="text"
+            android:maxLength="8"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/sensorIdLabel"/>
+            android:layout_below="@id/sensorIdLabel"
+            tools:textSize="30sp"
+            app:layout_constraintLeft_toRightOf="@id/customerCodeLabel"
+            app:layout_constraintBaseline_toBaselineOf="@id/customerCodeLabel"
+            android:layout_marginStart="5dp"
+            android:autofillHints="customerCode" />
+
+        <ImageButton
+            android:id="@+id/btnCancelCustomerCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_cancel_24"
+
+            app:layout_constraintBottom_toBottomOf="@id/customerCodeValue"
+            app:layout_constraintTop_toTopOf="@id/customerCodeValue"
+            app:layout_constraintRight_toLeftOf="@id/btnConfirmCustomerCode"
+            android:layout_marginEnd="10dp"
+            app:tint="@color/red"
+
+            android:backgroundTint="@color/black"
+            android:contentDescription="@string/cancel_button"
+            android:background="@drawable/flag_transparent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <ImageButton
+            android:id="@+id/btnConfirmCustomerCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_circle_24px"
+
+            app:layout_constraintBottom_toBottomOf="@id/customerCodeValue"
+            app:layout_constraintTop_toTopOf="@id/customerCodeValue"
+            app:layout_constraintRight_toRightOf="parent"
+            app:tint="@color/green"
+            android:background="@drawable/flag_transparent"
+            android:contentDescription="@string/confirm_button"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
 
         <ListView
             android:id="@+id/sensors_module_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/btnAddNewCustomer"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:divider="@color/text_default"
             android:dividerHeight="1dp"
@@ -60,6 +124,11 @@
             android:listSelector="@color/list_colors_when_pressed"
             android:paddingStart="@dimen/activity_vertical_margin"
             android:paddingEnd="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_horizontal_margin" />
-    </RelativeLayout>
+            android:paddingBottom="@dimen/activity_horizontal_margin"
+
+            app:layout_constraintTop_toBottomOf="@id/customerCodeLabel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.example.watermonitoringsystem.activities.supplier;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -76,6 +79,7 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
     private static final String CAMERA_LON_KEY = "camera_lon_key";
     private static final String CAMERA_ZOOM_KEY = "camera_zoom_key";
     private boolean addSensorMode;
+    ActivityResultLauncher<Intent> launchSensorModuleInfo;
     private ArrayList<SensorData> sensorDataListForMap;
     private ArrayList<Marker> mMarkerArray;
     private FloatingActionButton toggleViewFab;
@@ -84,14 +88,35 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
     private FloatingActionButton addSensorFab;
     private TextView addSensorTextView;
     private GoogleMap googleMap;
-    List<RegisteredElementData> allRegisteredElementData;
-    List<RegisteredElementData> validRegisteredElementData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.supplier_sensors_activity);
+
+        launchSensorModuleInfo = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        if(data == null)
+                            return;
+                        String customer_code = data.getStringExtra(SensorsModuleInfoActivity.CUSTOMER_CODE);
+                        int sensor_id = data.getIntExtra(SensorsModuleInfoActivity.SENSOR_ID, -1);
+                        if(customer_code == null || sensor_id == -1)
+                            return;
+                        for (SensorData sensor : sensorDataListForMap) {
+                            if(sensor.getSensorId() != sensor_id)
+                                continue;
+                            if(sensor.getCustomerCode().equals(customer_code))
+                                return;
+                            sensor.setCustomerCode(customer_code);
+                        }
+                        buildGoogleMapsWithMarkers(googleMap);
+                    }
+                }
+        );
 
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_supplier);
@@ -415,6 +440,7 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         b.putString(getString(R.string.customer_code_field), customerCode);
         intent.putExtras(b);
         //finish();
-        startActivity(intent);
+
+        launchSensorModuleInfo.launch(intent);
     }
 }

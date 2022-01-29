@@ -121,20 +121,7 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
         Callback<CoordinateDataReturn> callback = new Callback<CoordinateDataReturn>() {
             @Override
             public void onResponse(@NonNull Call<CoordinateDataReturn> call, @NonNull Response<CoordinateDataReturn> response) {
-                DatabaseReference sensorsEndpoint = Database.getSensorsEndpoint();
-                SensorsPerCustomersData sensorsPerCustomersData = new SensorsPerCustomersData();
-                sensorsPerCustomersData.setSensorId(selectedSensorId);
-                if (customerCodeEditTxtView.getText() == null || customerCodeEditTxtView.getText().toString().isEmpty()) {
-                    sensorsPerCustomersData.setCustomerCode("-");
-                } else {
-                    sensorsPerCustomersData.setCustomerCode(customerCodeEditTxtView.getText().toString());
-                }
-                sensorsEndpoint.child(String.valueOf(sensorsPerCustomersData.getSensorId())).setValue(sensorsPerCustomersData, (databaseError, databaseReference) -> {
-                    if (databaseError != null) {
-                        Log.e(getString(R.string.title_activity_add_new_coordinates_for_existing_sensor), databaseError.getMessage());
-                    }
-                });
-                sensorsEndpoint.push();
+                saveCustomerCodeToFirebase(selectedSensorId, customerCodeEditTxtView.getText().toString());
                 goBackToSupplierSensorsMap();
             }
 
@@ -144,6 +131,23 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
             }
         };
         ApiManager.addNewCoordinatesToSensor(coordinatesData, callback);
+    }
+
+    public static String saveCustomerCodeToFirebase(int sensorId, String customerCode){
+        DatabaseReference sensorsEndpoint = Database.getSensorsEndpoint();
+        SensorsPerCustomersData sensorsPerCustomersData = new SensorsPerCustomersData();
+        sensorsPerCustomersData.setSensorId(sensorId);
+        if (customerCode == null || customerCode.isEmpty())
+            sensorsPerCustomersData.setCustomerCode("-");
+        else
+            sensorsPerCustomersData.setCustomerCode(customerCode);
+        sensorsEndpoint.child(String.valueOf(sensorsPerCustomersData.getSensorId())).setValue(sensorsPerCustomersData, (databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                Log.e(AddCoordinateToExistingSensor.class.getSimpleName(), databaseError.getMessage());
+            }
+        });
+        sensorsEndpoint.push();
+        return sensorsPerCustomersData.getCustomerCode();
     }
 
     /**

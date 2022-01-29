@@ -1,15 +1,18 @@
 package com.example.watermonitoringsystem.activities.common;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,6 +25,7 @@ import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.customer.CustomerComplaintsActivity;
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
 import com.example.watermonitoringsystem.activities.customer.CustomerPersonalProfileActivity;
+import com.example.watermonitoringsystem.activities.supplier.AddCoordinateToExistingSensor;
 import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalveActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
@@ -53,6 +57,8 @@ import retrofit2.Response;
  */
 public class SensorsModuleInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public final static String CUSTOMER_CODE = "SensorsModuleInfoActivity-customer_code_response";
+    public final static String SENSOR_ID = "SensorsModuleInfoActivity-sensor_id_response";
     private String userType;
     private ArrayList<ChannelsData> sensorChannelsDataList;
     private SensorsAdapter sensorAdapter;
@@ -62,9 +68,10 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
     private String customerCode;
 
     private ListView sensorsListView;
-    private TextView customerCodeLabel;
-    private TextView sensorIdLabel;
-    private Button setCustomerCodeBtn;
+    private EditText customerCodeValueET;
+    private TextView sensorIdValueTV;
+    private ImageButton confirmCCButton;
+    private ImageButton cancelCCButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,10 +150,41 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
         sensorId = Integer.parseInt(b.getString(getString(R.string.sensor_id_field)));
         customerCode = b.getString(getString(R.string.customer_code_field));
 
+        confirmCCButton = findViewById(R.id.btnConfirmCustomerCode);
+        confirmCCButton.setOnClickListener(x -> {
+            customerCode = AddCoordinateToExistingSensor.saveCustomerCodeToFirebase(sensorId, customerCodeValueET.getText().toString());
+            confirmCCButton.setVisibility(View.GONE);
+            cancelCCButton.setVisibility(View.GONE);
+        });
+        cancelCCButton = findViewById(R.id.btnCancelCustomerCode);
+        cancelCCButton.setOnClickListener(x -> customerCodeValueET.setText(customerCode));
+
         sensorsListView = findViewById(R.id.sensors_module_list_view);
-        customerCodeLabel = findViewById(R.id.customerCodeLabel);
-        sensorIdLabel = findViewById(R.id.sensorIdLabel);
-        setCustomerCodeBtn = findViewById(R.id.btnAddNewCustomer);
+        sensorIdValueTV = findViewById(R.id.sensorIdValue);
+        customerCodeValueET = findViewById(R.id.customerCodeValue);
+        customerCodeValueET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().equals(customerCode)){
+                    confirmCCButton.setVisibility(View.GONE);
+                    cancelCCButton.setVisibility(View.GONE);
+                } else {
+                    confirmCCButton.setVisibility(View.VISIBLE);
+                    cancelCCButton.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
 
         sensorChannelsDataList = new ArrayList<>();
 
@@ -163,17 +201,15 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        Intent intent;
-//        if (userType.equals(Constants.SUPPLIER)) {
-//            intent = new Intent(this, SupplierSensorsMapActivity.class);
-//        } else {
-//            intent = new Intent(this, CustomerDashboardActivity.class);
-//        }
-//        finish();
-//        startActivity(intent);
-//    }
+    @Override
+    public void onBackPressed() {
+        Intent data = new Intent();
+        data.putExtra(CUSTOMER_CODE, customerCode);
+        data.putExtra(SENSOR_ID, sensorId);
+
+        setResult(Activity.RESULT_OK, data);
+        finish();
+    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -234,13 +270,11 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
                                 sensorChannelsDataList.add(channelsData);
                             }
 
-                            String text = getString(R.string.customer_code) + ": " + customerCode;
-                            customerCodeLabel.setText(text);
-                            customerCodeLabel.setVisibility(View.VISIBLE);
+                            customerCodeValueET.setText(customerCode);
+                            customerCodeValueET.setVisibility(View.VISIBLE);
 
-                            text = getString(R.string.sensor_id_text) + ": " + sensorId;
-                            sensorIdLabel.setText(text);
-                            sensorIdLabel.setVisibility(View.VISIBLE);
+                            sensorIdValueTV.setText(String.valueOf(sensorId));
+                            sensorIdValueTV.setVisibility(View.VISIBLE);
 
                             // Sensors list adapter
                             sensorAdapter = new SensorsAdapter(sensorChannelsDataList, getApplicationContext());
