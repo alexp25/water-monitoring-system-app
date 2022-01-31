@@ -1,29 +1,25 @@
 package com.example.watermonitoringsystem.activities.supplier;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.ColorInt;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -64,7 +60,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -84,8 +79,11 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
     private static final String CAMERA_LON_KEY = "camera_lon_key";
     private static final String CAMERA_ZOOM_KEY = "camera_zoom_key";
     private boolean addSensorMode;
+    ActivityResultLauncher<Intent> launchSensorModuleInfo;
     private ArrayList<SensorData> sensorDataListForMap;
     private ArrayList<Marker> mMarkerArray;
+    private FloatingActionButton toggleViewFab;
+    private boolean viewFlag;
     private FloatingActionButton resetFab;
     private FloatingActionButton addSensorFab;
     private TextView addSensorTextView;
@@ -96,6 +94,29 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.supplier_sensors_activity);
+
+        launchSensorModuleInfo = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        if(data == null)
+                            return;
+                        String customer_code = data.getStringExtra(SensorsModuleInfoActivity.CUSTOMER_CODE);
+                        int sensor_id = data.getIntExtra(SensorsModuleInfoActivity.SENSOR_ID, -1);
+                        if(customer_code == null || sensor_id == -1)
+                            return;
+                        for (SensorData sensor : sensorDataListForMap) {
+                            if(sensor.getSensorId() != sensor_id)
+                                continue;
+                            if(sensor.getCustomerCode().equals(customer_code))
+                                return;
+                            sensor.setCustomerCode(customer_code);
+                        }
+                        buildGoogleMapsWithMarkers(googleMap);
+                    }
+                }
+        );
 
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_supplier);
@@ -143,26 +164,30 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
 
         // FABs
         addSensorFab = findViewById(R.id.addSensorFab);
-        addSensorFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSensorMode = !addSensorMode;
-                if(addSensorMode){
-                    addSensorTextView.setVisibility(View.VISIBLE);
-                    addSensorFab.setImageResource(R.drawable.ic_plus_highlighted);
-                }
-                else{
-                    addSensorTextView.setVisibility(View.INVISIBLE);
-                    addSensorFab.setImageResource(R.drawable.ic_plus);
-                }
+        addSensorFab.setOnClickListener(v -> {
+            addSensorMode = !addSensorMode;
+            if(addSensorMode){
+                addSensorTextView.setVisibility(View.VISIBLE);
+                addSensorFab.setImageResource(R.drawable.ic_plus_highlighted);
+            }
+            else{
+                addSensorTextView.setVisibility(View.INVISIBLE);
+                addSensorFab.setImageResource(R.drawable.ic_plus);
             }
         });
         resetFab = findViewById(R.id.resetFab);
-        resetFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetMapCameraPosition(true);
+        resetFab.setOnClickListener(v -> resetMapCameraPosition(true));
+        toggleViewFab = findViewById(R.id.viewFab);
+        toggleViewFab.setOnClickListener(v -> {
+            if(this.viewFlag){
+                this.viewFlag = false;
+                toggleViewFab.setImageTintList(ColorStateList.valueOf(getColor(R.color.light_gray)));
             }
+            else{
+                this.viewFlag = true;
+                toggleViewFab.setImageTintList(null);
+            }
+            buildGoogleMapsWithMarkers(googleMap);
         });
     }
 
@@ -284,11 +309,15 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
                     public void onResponse(@NonNull Call<AllSensorsRealTimeDataResponse> call2,@NonNull Response<AllSensorsRealTimeDataResponse> response2) {
                         assert response2.body() != null;
 
-                        List<RegisteredElementData> rawRegisteredSensorsData = response.body().getData();
-                        Log.d("API-Data", rawRegisteredSensorsData.toString());
+                        List<RegisteredElementData> registeredSensorsData = response.body().getData();
+                        Log.d("API-Data", registeredSensorsData.toString());
                         List<MqttDataFormat> realtimeSensorsData = response2.body().getParsedData();
                         Log.d("API-Data", response2.body().toString());
-                        List<RegisteredElementData> registeredSensorsData = rawRegisteredSensorsData.stream().filter(x -> realtimeSensorsData.contains(MqttDataFormat.ofIdValue(x.getSensorId()))).collect(Collectors.toList());
+
+                        registeredSensorsData.forEach(x -> {
+                            if(realtimeSensorsData.contains(MqttDataFormat.ofIdValue(x.getSensorId())))
+                                x.setHasDataChannels(true);
+                        });
 
                         // Build list of sensors from MySQL database
                         buildSensorsList(registeredSensorsData);
@@ -342,6 +371,7 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
      * Build sensors list for Google map
      */
     private void buildSensorsList(List<RegisteredElementData> registeredSensorsData) {
+        sensorDataListForMap.clear();
         for (RegisteredElementData sensorDataFromMySqlDb : registeredSensorsData) {
             if (sensorDataFromMySqlDb.getSensorTypeCode() == MqttConstants.SENSOR_NODE_TYPE) {
                 if (sensorDataFromMySqlDb.getSensorId() != -1 && sensorDataFromMySqlDb.getLat() != null && sensorDataFromMySqlDb.getLng() != null) {
@@ -349,6 +379,7 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
                     sensorData.setSensorId(sensorDataFromMySqlDb.getSensorId());
                     sensorData.setLatitude(sensorDataFromMySqlDb.getLat());
                     sensorData.setLongitude(sensorDataFromMySqlDb.getLng());
+                    sensorData.setHasDataChannels(sensorDataFromMySqlDb.hasDataChannels());
                     sensorDataListForMap.add(sensorData);
                 }
             }
@@ -359,7 +390,11 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
      * Build Google map
      */
     private void buildGoogleMapsWithMarkers(@NonNull GoogleMap googleMap) {
+        mMarkerArray.clear();
+        googleMap.clear();
         for (SensorData sensor : sensorDataListForMap) {
+            if(!viewFlag && !sensor.hasDataChannels())
+                continue;
             LatLng place = new LatLng(sensor.getLatitude(), sensor.getLongitude());
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(place)
@@ -369,10 +404,9 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         }
 
         // Action on click on a marker => view centered on that marker and show the customerId and sensorId
-        googleMap.setOnMarkerClickListener(marker -> {
+        googleMap.setOnInfoWindowClickListener(marker -> {
             String[] markerSplitParts = Utils.getModuleIdAndCustomerCodeFromMarkerTitle(Objects.requireNonNull(marker.getTitle()));
             openSensorModuleInfo(markerSplitParts[0], markerSplitParts[1]);
-            return true;
         });
 
         // Action on click on map, not on a specific marker => open activity to configure sensors (add at selected coordinate a new sensor + optional the customerCode for it)
@@ -406,6 +440,7 @@ public class SupplierSensorsMapActivity extends AppCompatActivity implements Nav
         b.putString(getString(R.string.customer_code_field), customerCode);
         intent.putExtras(b);
         //finish();
-        startActivity(intent);
+
+        launchSensorModuleInfo.launch(intent);
     }
 }

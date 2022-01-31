@@ -64,6 +64,8 @@
     <string name="latitude_edit_text_field">Latitude</string>
     <string name="longitude_edit_text_field">Longitude</string>
     <string name="customer_code_edit_text_field">Customer Code</string>
+    <string name="sensor_id_label">Sensor:</string>
+    <string name="customer_code_label">Customer:</string>
     <string name="resetting_password">Type email for resetting password</string>
     <string name="re_type_password">Re-type Password</string>
     <string name="subject">Subject</string>
@@ -95,7 +97,7 @@
     <string name="name_sensor_request_customer">Name: </string>
     <string name="sensor_module_title">Sensor - Module ID:</string>
     <string name="sensor_channel_title">; Channel ID:</string>
-    <string name="add_to_customer">Add Customer</string>
+    <string name="add_to_customer">Set\nCustomer</string>
     <string name="change_data_history_number">Get History</string>
     <string name="customer_code_sensor_request_customer">CustomerCode: </string>
     <string name="email_sensor_request_customer">Email: </string>
@@ -118,6 +120,8 @@
 
     <!-- Buttons -->
     <string name="update_data">Update data</string>
+    <string name="cancel_button">Cancel button</string>
+    <string name="confirm_button">Confirm button</string>
     <string name="sensor_request">Sensor Request</string>
     <string name="supplier_selected">SUPPLIER</string>
     <string name="customer_selected">CUSTOMER</string>

@@ -11,6 +11,7 @@ public class SensorData {
     private String customerCode;
     private double latitude;
     private double longitude;
+    private boolean hasDataChannels;
 
     public SensorData() {
         this.customerCode = "-";
@@ -46,6 +47,14 @@ public class SensorData {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public boolean hasDataChannels() {
+        return hasDataChannels;
+    }
+
+    public void setHasDataChannels(boolean hasDataChannels) {
+        this.hasDataChannels = hasDataChannels;
     }
 
     @Override
