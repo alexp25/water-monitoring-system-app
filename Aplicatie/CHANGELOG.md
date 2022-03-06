@@ -5,7 +5,7 @@ Here are functional explanations of changes. For detailed code changes please se
 
 ### Water Monitoring System - Android App
 
-#### Changeset #1
+#### Changeset 1
 SupplierSensormapActivity
 * [x] added 'addSensorMode' which is toggled by a right-bottom FAB
 * [x] short press action adds a sensor only if 'addSensorMode' is true
@@ -13,18 +13,20 @@ SupplierSensormapActivity
 * [x] restored map's camera position if former position is available 
 * [x] added "Reset camera" FAB which animates camera to a position in such way all available markers will fit in screen
 
-#### Changeset #2
+#### Changeset 2
 * [x] onMarkerClick opens sensors' popup with info (not on long click)
 * [x] added SensorId on popup info view
 * [x] sensors without data (channels) are no longer showed on the map
 
-#### Changeset #3
+#### Changeset 3
 * [x] Handle sensors with same coords:let GoogleMaps handle that; open sensor channels on InfoBox click and not on marker click 
 * [x] Added `Toggle view` button to allow displaying of sensors without data channels (usefull if you want to change the customer code for a sensor which do not have data channels yet)
 * [x] Added EditText for customer code `SensorsModuleInfoActivity` to allow updating the Sensor's Customer Code; SMIActivity sends a response back to Main activity to update map marker and local sensor data
 
 
-#### Changeset #4
+#### Changeset 4
+* [x] 3.addendum: should fill the available width (otherwise it's hard to tap on it) OR should have an edit button to the right
+* [x] 3.addendum: should not be limited to 8 chars
 * [ ] Test and fix add new sensor activity - it is not added right now
 
 

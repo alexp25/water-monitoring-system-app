@@ -153,8 +153,8 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
         confirmCCButton = findViewById(R.id.btnConfirmCustomerCode);
         confirmCCButton.setOnClickListener(x -> {
             customerCode = AddCoordinateToExistingSensor.saveCustomerCodeToFirebase(sensorId, customerCodeValueET.getText().toString());
-            confirmCCButton.setVisibility(View.GONE);
-            cancelCCButton.setVisibility(View.GONE);
+            confirmCCButton.setVisibility(View.INVISIBLE);
+            cancelCCButton.setVisibility(View.INVISIBLE);
         });
         cancelCCButton = findViewById(R.id.btnCancelCustomerCode);
         cancelCCButton.setOnClickListener(x -> customerCodeValueET.setText(customerCode));
@@ -176,8 +176,8 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().equals(customerCode)){
-                    confirmCCButton.setVisibility(View.GONE);
-                    cancelCCButton.setVisibility(View.GONE);
+                    confirmCCButton.setVisibility(View.INVISIBLE);
+                    cancelCCButton.setVisibility(View.INVISIBLE);
                 } else {
                     confirmCCButton.setVisibility(View.VISIBLE);
                     cancelCCButton.setVisibility(View.VISIBLE);

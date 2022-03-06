@@ -62,18 +62,18 @@
 
         <EditText
             android:id="@+id/customerCodeValue"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="54321"
+            tools:text="-"
             android:inputType="text"
-            android:maxLength="8"
 
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:layout_below="@id/sensorIdLabel"
             tools:textSize="30sp"
-            app:layout_constraintLeft_toRightOf="@id/customerCodeLabel"
+            app:layout_constraintStart_toEndOf="@id/customerCodeLabel"
+            app:layout_constraintEnd_toStartOf="@id/btnCancelCustomerCode"
             app:layout_constraintBaseline_toBaselineOf="@id/customerCodeLabel"
             android:layout_marginStart="5dp"
             android:autofillHints="customerCode" />
@@ -93,7 +93,7 @@
             android:backgroundTint="@color/black"
             android:contentDescription="@string/cancel_button"
             android:background="@drawable/flag_transparent"
-            android:visibility="gone"
+            android:visibility="invisible"
             tools:visibility="visible"
             />
 
@@ -109,7 +109,7 @@
             app:tint="@color/green"
             android:background="@drawable/flag_transparent"
             android:contentDescription="@string/confirm_button"
-            android:visibility="gone"
+            android:visibility="invisible"
             tools:visibility="visible"
             />
 
