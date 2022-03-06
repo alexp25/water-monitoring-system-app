@@ -45,16 +45,17 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="5dp"
+                android:layout_marginRight="20dp"
                 android:layout_below="@id/login_title"
+                android:background="@drawable/shape_edittext_custom"
                 android:layout_marginTop="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/e_mail"
                     android:inputType="textEmailAddress"
@@ -68,6 +69,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/shape_edittext_custom"
                 android:layout_below="@id/loginEmailInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -75,10 +81,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_centerInParent="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/password"
                     android:inputType="textPassword"
