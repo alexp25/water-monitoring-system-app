@@ -28,6 +28,7 @@ SupplierSensormapActivity
 * [x] 3.addendum: should fill the available width (otherwise it's hard to tap on it) OR should have an edit button to the right
 * [x] 3.addendum: should not be limited to 8 chars
 * [x] input labels out of bound (SensorsChannelInfoActivity - limit label, LoginFragment, RegisterFragment)
+* [x] bug when no data points are available in SensorsChannelInfoActivity
 * [ ] Test and fix add new sensor activity - it is not added right now
 
 

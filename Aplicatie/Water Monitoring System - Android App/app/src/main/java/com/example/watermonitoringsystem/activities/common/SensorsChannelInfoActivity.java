@@ -300,6 +300,10 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
 
                 // Get min and max DataPoint by Y value (to set Y bounds).
                 // The X bounds will be first and last element from array because data from array is sorted ascending by X
+                if(graphDataList.size() == 0) {
+                    Toast.makeText(SensorsChannelInfoActivity.this, "No datapoints", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 minPoint = Collections.min(graphDataList, Comparator.comparingDouble(DataPoint::getY));
                 maxPoint = Collections.max(graphDataList, Comparator.comparingDouble(DataPoint::getY));
 
