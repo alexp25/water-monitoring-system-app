@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.activities.supplier;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,7 +122,7 @@ public class SupplierElectrovalveActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_supplier_electrovalve);

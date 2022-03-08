@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.activities.common;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -240,7 +242,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
             startActivity(new Intent(this, AppSupportActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_sensor_info);

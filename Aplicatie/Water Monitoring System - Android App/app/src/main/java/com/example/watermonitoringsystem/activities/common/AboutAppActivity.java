@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.activities.common;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -142,7 +144,7 @@ public class AboutAppActivity extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(this, AppSupportActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_about_app);

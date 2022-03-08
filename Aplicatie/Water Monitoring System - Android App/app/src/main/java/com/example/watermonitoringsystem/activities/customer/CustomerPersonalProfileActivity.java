@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.activities.customer;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -202,7 +204,7 @@ public class CustomerPersonalProfileActivity extends AppCompatActivity implement
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_customer_personal_profile);

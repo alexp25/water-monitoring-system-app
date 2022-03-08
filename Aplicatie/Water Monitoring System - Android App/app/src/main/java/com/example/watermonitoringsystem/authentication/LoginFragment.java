@@ -20,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.watermonitoringsystem.MainActivity;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
@@ -49,9 +50,9 @@ public class LoginFragment extends Fragment {
 
     private TextView mEmailLogin;
     private TextView mPasswordLogin;
-    private MqttReceiverThread mqttReceiverThread;
+    private static MqttReceiverThread mqttReceiverThread;
     private static MqttSenderThread mqttSenderThread;
-    private boolean isMqttStarted = false;
+    private static boolean isMqttStarted = false;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch cSwitch;
     private TextView cSwitchText;
@@ -180,7 +181,7 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void stopMqttConnections() {
+    public static void stopMqttConnections() {
         if (isMqttStarted) {
             isMqttStarted = false;
             mqttReceiverThread.setCallback(null);
