@@ -81,75 +81,71 @@ public class SensorsModuleInfoActivity extends AppCompatActivity implements Navi
 
         userType = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_USER_TYPE, SensorsModuleInfoActivity.this);
 
-        setContentView(R.layout.sensors_module_info_content);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
-        //setTheme(R.style.ThemeOverlay_AppCompat_ActionBar);
-        //setSupportActionBar(ActionBar);
-
-//        // Toolbar
-//        AppBarLayout appBarLayout = findViewById(R.id.sensor_info_app_bar_layout);
-//        Toolbar mainToolbar;
-//        Toolbar supplierToolbar = appBarLayout.findViewById(R.id.toolbar_supplier);
-//        Toolbar customerToolbar = appBarLayout.findViewById(R.id.toolbar_customer);
-
-        // NavigationView + Clear menu
-//        NavigationView navigationView = findViewById(R.id.nav_view_sensor_info);
-//        navigationView.getMenu().clear();
-
-        // Update Toolbar and NavigationView regarding to the user type = SUPPLIER / CUSTOMER
-//        if (userType.equals(Constants.SUPPLIER)) {
-//            // Remove toolbar for customer and set toolbar for supplier
-//            appBarLayout.removeView(customerToolbar);
-//            mainToolbar = supplierToolbar;
-//            // Inflate supplier menu
-//            navigationView.inflateMenu(R.menu.navigation_drawer_supplier);
-//        } else {
-//            // Remove toolbar for supplier and set toolbar for customer
-//            appBarLayout.removeView(supplierToolbar);
-//            mainToolbar = customerToolbar;
-//            // Inflate customer menu
-//            navigationView.inflateMenu(R.menu.navigation_drawer_customer);
-//        }
+        setContentView(R.layout.sensors_module_info_activity);
 
         // Toolbar
-//        setSupportActionBar(mainToolbar);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-//        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        AppBarLayout appBarLayout = findViewById(R.id.sensor_info_app_bar_layout);
+        Toolbar mainToolbar;
+        Toolbar supplierToolbar = appBarLayout.findViewById(R.id.toolbar_supplier);
+        Toolbar customerToolbar = appBarLayout.findViewById(R.id.toolbar_customer);
+
+        // NavigationView + Clear menu
+        NavigationView navigationView = findViewById(R.id.nav_view_sensor_info);
+        navigationView.getMenu().clear();
+
+        // Update Toolbar and NavigationView regarding to the user type = SUPPLIER / CUSTOMER
+        if (userType.equals(Constants.SUPPLIER)) {
+            // Remove toolbar for customer and set toolbar for supplier
+            appBarLayout.removeView(customerToolbar);
+            mainToolbar = supplierToolbar;
+            // Inflate supplier menu
+            navigationView.inflateMenu(R.menu.navigation_drawer_supplier);
+        } else {
+            // Remove toolbar for supplier and set toolbar for customer
+            appBarLayout.removeView(supplierToolbar);
+            mainToolbar = customerToolbar;
+            // Inflate customer menu
+            navigationView.inflateMenu(R.menu.navigation_drawer_customer);
+        }
+
+        // Toolbar
+        setSupportActionBar(mainToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
 
         // DrawerLayout
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout_sensor_info);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_sensor_info);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         // NavigationView
-//        navigationView.setNavigationItemSelectedListener(this);
-//        View headerLayout = navigationView.getHeaderView(0);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerLayout = navigationView.getHeaderView(0);
 
-//        TextView txtName = headerLayout.findViewById(R.id.user_nav_header);
-//        TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
-//        CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
+        TextView txtName = headerLayout.findViewById(R.id.user_nav_header);
+        TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
+        CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
 
-//        if (userType.equals(Constants.CUSTOMER)) {
-//            String customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, SensorsModuleInfoActivity.this);
-//            Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
-//        }
-//        // Only supplier has notifications bell
-//        else {
-//            String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SensorsModuleInfoActivity.this);
-//            Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
-//
-//            // Get notifications number
-//            ImageView redSquare = findViewById(R.id.red_square);
-//            TextView notificationNumber = findViewById(R.id.notifications_number);
-//            Utils.getNotificationsNumber(redSquare, notificationNumber);
-//
-//            // Notification Bell
-//            ImageView notificationsBellImg = findViewById(R.id.notificationBellImg);
-//            notificationsBellImg.setOnClickListener(Utils::openNotificationsPopUp);
-//        }
+        if (userType.equals(Constants.CUSTOMER)) {
+            String customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, SensorsModuleInfoActivity.this);
+            Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
+        }
+        // Only supplier has notifications bell
+        else {
+            String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SensorsModuleInfoActivity.this);
+            Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
+
+            // Get notifications number
+            ImageView redSquare = findViewById(R.id.red_square);
+            TextView notificationNumber = findViewById(R.id.notifications_number);
+            Utils.getNotificationsNumber(redSquare, notificationNumber);
+
+            // Notification Bell
+            ImageView notificationsBellImg = findViewById(R.id.notificationBellImg);
+            notificationsBellImg.setOnClickListener(Utils::openNotificationsPopUp);
+        }
 
         // Get data send between activities
         Bundle b = getIntent().getExtras();
