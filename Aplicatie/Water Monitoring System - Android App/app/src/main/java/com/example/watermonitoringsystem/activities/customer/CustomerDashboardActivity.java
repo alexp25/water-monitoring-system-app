@@ -153,7 +153,6 @@ public class CustomerDashboardActivity extends AppCompatActivity
         b.putString(getString(R.string.sensor_id_field), String.valueOf(moduleData.getSensorId()));
         b.putString(getString(R.string.customer_code_field), String.valueOf(moduleData.getCustomerCode()));
         intent.putExtras(b);
-        finish();
         startActivity(intent);
     }
 

@@ -1,11 +1,9 @@
 package com.example.watermonitoringsystem.activities.common;
 
-import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,19 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.watermonitoringsystem.R;
-import com.example.watermonitoringsystem.activities.customer.CustomerComplaintsActivity;
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
-import com.example.watermonitoringsystem.activities.customer.CustomerPersonalProfileActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalveActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
 import com.example.watermonitoringsystem.api.ApiManager;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.models.sqldb.HistoryData;
@@ -36,7 +26,6 @@ import com.example.watermonitoringsystem.models.sqldb.HistoryRawData;
 import com.example.watermonitoringsystem.utils.Constants;
 import com.example.watermonitoringsystem.utils.Utils;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.navigation.NavigationView;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -49,7 +38,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,7 +47,7 @@ import retrofit2.Response;
  *
  * @author Ioan-Alexandru Chirita
  */
-public class SensorsChannelInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SensorsChannelInfoActivity extends AppCompatActivity {
 
     private String userType;
     private String customerCode;
@@ -78,6 +66,7 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
     private boolean wasGraphicCustomized = false;
 
 
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,54 +82,24 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
         Toolbar supplierToolbar = appBarLayout.findViewById(R.id.toolbar_supplier);
         Toolbar customerToolbar = appBarLayout.findViewById(R.id.toolbar_customer);
 
-        // NavigationView + Clear menu
-        NavigationView navigationView = findViewById(R.id.nav_view_sensor_channel_info);
-        navigationView.getMenu().clear();
-
         // Update Toolbar and NavigationView regarding to the user type = SUPPLIER / CUSTOMER
         if (userType.equals(Constants.SUPPLIER)) {
             // Remove toolbar for customer and set toolbar for supplier
             appBarLayout.removeView(customerToolbar);
             mainToolbar = supplierToolbar;
-            // Inflate supplier menu
-            navigationView.inflateMenu(R.menu.navigation_drawer_supplier);
         } else {
             // Remove toolbar for supplier and set toolbar for customer
             appBarLayout.removeView(supplierToolbar);
             mainToolbar = customerToolbar;
-            // Inflate customer menu
-            navigationView.inflateMenu(R.menu.navigation_drawer_customer);
         }
 
         // Toolbar
         setSupportActionBar(mainToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        mainToolbar.setNavigationOnClickListener(v -> finish());
 
-        // DrawerLayout
-        DrawerLayout drawer = findViewById(R.id.drawer_layout_sensor_channel_info);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        // NavigationView
-        navigationView.setNavigationItemSelectedListener(this);
-        View headerLayout = navigationView.getHeaderView(0);
-
-        TextView txtName = headerLayout.findViewById(R.id.user_nav_header);
-        TextView txtEmail = headerLayout.findViewById(R.id.email_nav_header);
-        CircleImageView imgProfile = headerLayout.findViewById(R.id.profile_picture_nav_header);
-
-        if (userType.equals(Constants.CUSTOMER)) {
-            String customerCode = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_CUSTOMER_CODE, SensorsChannelInfoActivity.this);
-            Utils.getCustomerProfileFromDatabase(customerCode, txtName, txtEmail, imgProfile);
-        }
-        // Only supplier has notifications bell
-        else {
-            String email = Utils.getValueFromSharedPreferences(SharedPrefsKeys.KEY_EMAIL, SensorsChannelInfoActivity.this);
-            Utils.getSupplierProfileFromDatabase(email, txtName, txtEmail, imgProfile);
-
+        if (userType.equals(Constants.SUPPLIER)) {
             // Get notifications number
             ImageView redSquare = findViewById(R.id.red_square);
             TextView notificationNumber = findViewById(R.id.notifications_number);
@@ -217,58 +176,6 @@ public class SensorsChannelInfoActivity extends AppCompatActivity implements Nav
             graphView.removeAllSeries();
             getSensorsHistoryDataAndBuildGraphic(nrOfDataHistory);
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent;
-        Bundle b = new Bundle();
-        b.putString(getString(R.string.sensor_id_field), String.valueOf(sensorId));
-        b.putString(getString(R.string.customer_code_field), String.valueOf(customerCode));
-        if (userType.equals(Constants.SUPPLIER)) {
-            intent = new Intent(this, SensorsModuleInfoActivity.class);
-        } else {
-            intent = new Intent(this, CustomerDashboardActivity.class);
-        }
-        intent.putExtras(b);
-        finish();
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_sensors) {
-            startActivity(new Intent(this, SupplierSensorsMapActivity.class));
-            finish();
-        } else if (id == R.id.nav_electrovalve) {
-            startActivity(new Intent(this, SupplierElectrovalveActivity.class));
-            finish();
-        } else if (id == R.id.nav_water_pump) {
-            startActivity(new Intent(this, SupplierWaterPumpActivity.class));
-            finish();
-        } else if (id == R.id.nav_home_customer) {
-            startActivity(new Intent(this, CustomerDashboardActivity.class));
-            finish();
-        } else if (id == R.id.nav_personal_data) {
-            startActivity(new Intent(this, CustomerPersonalProfileActivity.class));
-            finish();
-        } else if (id == R.id.nav_complaints) {
-            startActivity(new Intent(this, CustomerComplaintsActivity.class));
-            finish();
-        } else if (id == R.id.nav_about_app) {
-            startActivity(new Intent(this, AboutAppActivity.class));
-            finish();
-        } else if (id == R.id.nav_app_support) {
-            startActivity(new Intent(this, AppSupportActivity.class));
-            finish();
-        } else if (id == R.id.nav_sign_out) {
-            logoutFromActivity(this);
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout_sensor_channel_info);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     /**

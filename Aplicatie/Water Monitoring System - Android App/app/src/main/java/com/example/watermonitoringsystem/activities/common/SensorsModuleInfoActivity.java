@@ -91,7 +91,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
-        mainToolbar.setNavigationOnClickListener(v -> finish());
+        mainToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         if (userType.equals(Constants.SUPPLIER)) {
             // Get notifications number
@@ -249,7 +249,6 @@ public class SensorsModuleInfoActivity extends AppCompatActivity {
         b.putString(getString(R.string.sensor_id_field), String.valueOf(sensorId));
         b.putString(getString(R.string.channel_id_field), String.valueOf(sensorChannelsDataList.get(position).getChannelId()));
         b.putString(getString(R.string.customer_code_field), customerCode);
-        finish();
         intent.putExtras(b);
         startActivity(intent);
     }
