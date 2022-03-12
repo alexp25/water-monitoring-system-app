@@ -1,117 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/sensorsPerModuleFrameLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginTop="55dp"
-    android:background="@drawable/background5"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:id="@+id/module_info_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/background5"
+        android:padding="16dp">
+
 
         <TextView
             android:id="@+id/sensorIdLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_id_label"
-            tools:text="Sensor:"
-            tools:textSize="30sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            tools:text="Sensor:"
+            tools:textSize="30sp" />
 
         <TextView
             android:id="@+id/sensorIdValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/customer_code_data"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            tools:text="12345"
-            tools:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@id/sensorIdLabel"
             app:layout_constraintLeft_toRightOf="@id/sensorIdLabel"
-            android:layout_marginStart="5dp"/>
+            tools:text="12345"
+            tools:textSize="30sp" />
 
         <TextView
             android:id="@+id/customerCodeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:labelFor="@id/customerCodeValue"
             android:text="@string/customer_code_label"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            tools:textStyle="bold"
-            android:labelFor="@id/customerCodeValue"
-
             android:textSize="30sp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sensorIdLabel"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            tools:textStyle="bold" />
 
         <EditText
             android:id="@+id/customerCodeValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="-"
-            android:inputType="text"
+            android:layout_below="@id/sensorIdLabel"
+            android:layout_marginStart="5dp"
 
+            android:autofillHints="customerCode"
+            android:inputType="text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:layout_below="@id/sensorIdLabel"
-            tools:textSize="30sp"
-            app:layout_constraintStart_toEndOf="@id/customerCodeLabel"
-            app:layout_constraintEnd_toStartOf="@id/btnCancelCustomerCode"
             app:layout_constraintBaseline_toBaselineOf="@id/customerCodeLabel"
-            android:layout_marginStart="5dp"
-            android:autofillHints="customerCode" />
+            app:layout_constraintEnd_toStartOf="@id/btnCancelCustomerCode"
+            app:layout_constraintStart_toEndOf="@id/customerCodeLabel"
+            tools:text="-"
+            tools:textSize="30sp" />
 
         <ImageButton
             android:id="@+id/btnCancelCustomerCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_cancel_24"
-
-            app:layout_constraintBottom_toBottomOf="@id/customerCodeValue"
-            app:layout_constraintTop_toTopOf="@id/customerCodeValue"
-            app:layout_constraintRight_toLeftOf="@id/btnConfirmCustomerCode"
             android:layout_marginEnd="10dp"
-            app:tint="@color/red"
 
+            android:background="@drawable/flag_transparent"
             android:backgroundTint="@color/black"
             android:contentDescription="@string/cancel_button"
-            android:background="@drawable/flag_transparent"
+            android:src="@drawable/baseline_cancel_24"
             android:visibility="invisible"
-            tools:visibility="visible"
-            />
+
+            app:layout_constraintBottom_toBottomOf="@id/customerCodeValue"
+            app:layout_constraintRight_toLeftOf="@id/btnConfirmCustomerCode"
+            app:layout_constraintTop_toTopOf="@id/customerCodeValue"
+            app:tint="@color/red"
+            tools:visibility="visible" />
 
         <ImageButton
             android:id="@+id/btnConfirmCustomerCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_check_circle_24px"
-
-            app:layout_constraintBottom_toBottomOf="@id/customerCodeValue"
-            app:layout_constraintTop_toTopOf="@id/customerCodeValue"
-            app:layout_constraintRight_toRightOf="parent"
-            app:tint="@color/green"
             android:background="@drawable/flag_transparent"
+
             android:contentDescription="@string/confirm_button"
+            android:src="@drawable/ic_check_circle_24px"
             android:visibility="invisible"
-            tools:visibility="visible"
-            />
+            app:layout_constraintBottom_toBottomOf="@id/customerCodeValue"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/customerCodeValue"
+            app:tint="@color/green"
+            tools:visibility="visible" />
 
         <ListView
             android:id="@+id/sensors_module_list_view"
@@ -126,9 +131,9 @@
             android:paddingEnd="@dimen/activity_vertical_margin"
             android:paddingBottom="@dimen/activity_horizontal_margin"
 
-            app:layout_constraintTop_toBottomOf="@id/customerCodeLabel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintLeft_toRightOf="parent"/>
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/customerCodeLabel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</LinearLayout>

@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.watermonitoringsystem.activities.common.SensorsModuleInfoActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/sensor_info_app_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.WaterMonitoringSystem">
-
-        <include layout="@layout/toolbar_supplier" />
-
-        <include layout="@layout/toolbar_customer" />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/sensors_module_info_content" />
 
