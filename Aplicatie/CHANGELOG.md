@@ -30,6 +30,11 @@ SupplierSensormapActivity
 * [x] input labels out of bound (SensorsChannelInfoActivity - limit label, LoginFragment, RegisterFragment)
 * [x] bug when no data points are available in SensorsChannelInfoActivity
 * [x] Log out not working under some circumstances (note: the app's navigation is poorly implemented; the fix is working, but definetly not the best practice)
+* [x] Removed Navigation Drawer from SensorsChannelInfoActivity and SensorsModuleInfoActivity
+* [x] Added popup to confirm customer code change
+
+
+#### Changeset 5
 * [ ] Test and fix add new sensor activity - it is not added right now
 
 

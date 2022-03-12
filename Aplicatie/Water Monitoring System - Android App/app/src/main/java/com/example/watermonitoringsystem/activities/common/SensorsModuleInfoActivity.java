@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,6 +112,7 @@ public class SensorsModuleInfoActivity extends AppCompatActivity {
 
         confirmCCButton = findViewById(R.id.btnConfirmCustomerCode);
         confirmCCButton.setOnClickListener(x -> {
+            Toast.makeText(this, "Customer code changed from " + customerCode + " to " + customerCodeValueET.getText(), Toast.LENGTH_SHORT).show();
             customerCode = AddCoordinateToExistingSensor.saveCustomerCodeToFirebase(sensorId, customerCodeValueET.getText().toString());
             confirmCCButton.setVisibility(View.INVISIBLE);
             cancelCCButton.setVisibility(View.INVISIBLE);
