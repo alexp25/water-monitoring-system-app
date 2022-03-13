@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.watermonitoringsystem.R;
-import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
 import com.example.watermonitoringsystem.api.ApiManager;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.models.sqldb.HistoryData;
