@@ -81,7 +81,7 @@ public class SensorsChannelInfoActivity extends AppCompatActivity {
         Toolbar supplierToolbar = appBarLayout.findViewById(R.id.toolbar_supplier);
         Toolbar customerToolbar = appBarLayout.findViewById(R.id.toolbar_customer);
 
-        // Update Toolbar and NavigationView regarding to the user type = SUPPLIER / CUSTOMER
+        // Update Toolbar regarding to the user type = SUPPLIER / CUSTOMER
         if (userType.equals(Constants.SUPPLIER)) {
             // Remove toolbar for customer and set toolbar for supplier
             appBarLayout.removeView(customerToolbar);

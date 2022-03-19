@@ -146,6 +146,10 @@ public class SensorsModuleInfoActivity extends AppCompatActivity {
 
             }
         });
+        if (userType.equals(Constants.CUSTOMER)) {
+            customerCodeValueET.setFocusable(false);
+            customerCodeValueET.setEnabled(false);
+        }
 
         sensorChannelsDataList = new ArrayList<>();
 
