@@ -32,6 +32,7 @@ SupplierSensormapActivity
 * [x] Log out not working under some circumstances (note: the app's navigation is poorly implemented; the fix is working, but definetly not the best practice)
 * [x] Removed Navigation Drawer from SensorsChannelInfoActivity and SensorsModuleInfoActivity
 * [x] Added popup to confirm customer code change
+* [x] Customer Account - view attached sensors on the map: added new menu option
 
 
 #### Changeset 5

@@ -4,7 +4,8 @@
 
     <!-- Navigation Bar -->
     <string name="sensor_item">Sensors</string>
-    <string name="home_item">Home</string>
+    <string name="sensor_item_customer">Sensors Map</string>
+    <string name="home_item">Sensors List</string>
     <string name="personal_information_item">Personal Data</string>
     <string name="complaints_item">Requests/Complaints</string>
     <string name="electrovalve_item">Electrovalves</string>

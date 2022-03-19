@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.activities.common.SensorsModuleInfoActivity;
 import com.example.watermonitoringsystem.adapters.ModulesAdapter;
 import com.example.watermonitoringsystem.api.ApiManager;
@@ -125,7 +126,10 @@ public class CustomerDashboardActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_personal_data) {
+        if (id == R.id.nav_sensors) {
+            startActivity(new Intent(this, SensorsMapActivity.class));
+            finish();
+        } else if (id == R.id.nav_personal_data) {
             startActivity(new Intent(this, CustomerPersonalProfileActivity.class));
             finish();
         } else if (id == R.id.nav_complaints) {

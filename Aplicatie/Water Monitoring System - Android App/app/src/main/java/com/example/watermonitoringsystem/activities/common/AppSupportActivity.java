@@ -25,7 +25,6 @@ import com.example.watermonitoringsystem.activities.customer.CustomerComplaintsA
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
 import com.example.watermonitoringsystem.activities.customer.CustomerPersonalProfileActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalveActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.utils.Constants;
@@ -135,7 +134,7 @@ public class AppSupportActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
 
         if (id == R.id.nav_sensors) {
-            startActivity(new Intent(this, SupplierSensorsMapActivity.class));
+            startActivity(new Intent(this, SensorsMapActivity.class));
             finish();
         } else if (id == R.id.nav_electrovalve) {
             startActivity(new Intent(this, SupplierElectrovalveActivity.class));

@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.adapters.MessageTypeSpinnerAdapter;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
@@ -123,7 +124,10 @@ public class CustomerComplaintsActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_home_customer) {
+        if (id == R.id.nav_sensors) {
+            startActivity(new Intent(this, SensorsMapActivity.class));
+            finish();
+        } else if (id == R.id.nav_home_customer) {
             startActivity(new Intent(this, CustomerDashboardActivity.class));
             finish();
         } else if (id == R.id.nav_personal_data) {

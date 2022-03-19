@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.adapters.ElectrovalvesAdapter;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.firebase.Database;
@@ -110,7 +111,7 @@ public class SupplierElectrovalveActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_sensors) {
-            startActivity(new Intent(this, SupplierSensorsMapActivity.class));
+            startActivity(new Intent(this, SensorsMapActivity.class));
             finish();
         } else if (id == R.id.nav_water_pump) {
             startActivity(new Intent(this, SupplierWaterPumpActivity.class));

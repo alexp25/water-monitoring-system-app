@@ -20,10 +20,9 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.watermonitoringsystem.MainActivity;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.models.firebasedb.CustomerData;
 import com.example.watermonitoringsystem.models.firebasedb.SupplierData;
@@ -316,7 +315,7 @@ public class LoginFragment extends Fragment {
                                 mPasswordLogin.setText("");
 
                                 // Go to supplier main activity
-                                final Intent intent = new Intent(requireContext(), SupplierSensorsMapActivity.class);
+                                final Intent intent = new Intent(requireContext(), SensorsMapActivity.class);
                                 Toast.makeText(requireView().getContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
