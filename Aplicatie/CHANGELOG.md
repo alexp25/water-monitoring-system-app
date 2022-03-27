@@ -33,6 +33,7 @@ SupplierSensormapActivity
 * [x] Removed Navigation Drawer from SensorsChannelInfoActivity and SensorsModuleInfoActivity
 * [x] Added popup to confirm customer code change
 * [x] Customer Account - view attached sensors on the map: added new menu option
+* [x] Adding clusters of markers on map
 
 
 #### Changeset 5

@@ -2,6 +2,7 @@ package com.example.watermonitoringsystem.activities.common;
 
 import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.models.MqttDataFormat;
 import com.example.watermonitoringsystem.models.app.SensorData;
 import com.example.watermonitoringsystem.models.firebasedb.SensorsPerCustomersData;
+import com.example.watermonitoringsystem.models.map.SensorMarker;
 import com.example.watermonitoringsystem.models.sqldb.AllSensorsRealTimeDataResponse;
 import com.example.watermonitoringsystem.models.sqldb.RegisteredRawElementsData;
 import com.example.watermonitoringsystem.models.sqldb.RegisteredElementData;
@@ -52,20 +54,23 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.clustering.ClusterItem;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -85,18 +90,24 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
     private static final String CAMERA_LAT_KEY = "camera_lat_key";
     private static final String CAMERA_LON_KEY = "camera_lon_key";
     private static final String CAMERA_ZOOM_KEY = "camera_zoom_key";
+
     private String userType;
     private String customerCode;
     private boolean addSensorMode;
     ActivityResultLauncher<Intent> launchSensorModuleInfo;
     private ArrayList<SensorData> sensorDataListForMap;
-    private ArrayList<Marker> mMarkerArray;
+
+    // Map
+    private GoogleMap googleMap;
+    private ArrayList<SensorMarker> mMarkerArray;
+    private CustomClusterManager<SensorMarker> mClusterManager;
+
+    // FABs
     private FloatingActionButton toggleViewFab;
-    private boolean viewFlag;
     private FloatingActionButton resetFab;
     private FloatingActionButton addSensorFab;
+    private boolean viewFlag;
     private TextView addSensorTextView;
-    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,10 +242,15 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
     }
 
 
+    @SuppressLint("PotentialBehaviorOverride")
     @Override
     public void onMapReady(@NotNull GoogleMap googleMap) {
         // Build sensors data list from MySQL database and Firebase Realtime Database
         Log.e(TAG, "onMapReady called");
+
+        mClusterManager = new CustomClusterManager<>(this, googleMap);
+        googleMap.setOnCameraIdleListener(mClusterManager);
+        googleMap.setOnMarkerClickListener(mClusterManager);
         this.googleMap = googleMap;
         getModulesDataFromDatabases(googleMap);
         setMapCameraPosition();
@@ -299,7 +315,7 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
             return;
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for(Marker marker : mMarkerArray){
+        for(SensorMarker marker : mMarkerArray){
             builder.include(marker.getPosition());
         }
         CameraUpdate cUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(), 250);
@@ -439,6 +455,7 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
      */
     private void buildGoogleMapsWithMarkers(@NonNull GoogleMap googleMap) {
         mMarkerArray.clear();
+        mClusterManager.clearItems();
         googleMap.clear();
         for (SensorData sensor : sensorDataListForMap) {
             if(userType.equals(Constants.CUSTOMER) && !sensor.getCustomerCode().equals(customerCode))
@@ -446,15 +463,14 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
             if(!viewFlag && !sensor.hasDataChannels())
                 continue;
             LatLng place = new LatLng(sensor.getLatitude(), sensor.getLongitude());
-            Marker marker = googleMap.addMarker(new MarkerOptions()
-                    .position(place)
-                    .title("SensorId: " + sensor.getSensorId() + "; CustomerCode: " + sensor.getCustomerCode())
-            );
+            SensorMarker marker = new SensorMarker(place, "SensorId: " + sensor.getSensorId() + "; CustomerCode: " + sensor.getCustomerCode());
             mMarkerArray.add(marker);
         }
+        mClusterManager.addItems(mMarkerArray);
+        mClusterManager.cluster();
 
         // Action on click on a marker => view centered on that marker and show the customerId and sensorId
-        googleMap.setOnInfoWindowClickListener(marker -> {
+        mClusterManager.getMarkerCollection().setOnInfoWindowClickListener(marker -> {
             String[] markerSplitParts = Utils.getModuleIdAndCustomerCodeFromMarkerTitle(Objects.requireNonNull(marker.getTitle()));
             openSensorModuleInfo(markerSplitParts[0], markerSplitParts[1]);
         });
@@ -469,6 +485,7 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
                     Bundle b = new Bundle();
 
                     DecimalFormat numberFormat = new DecimalFormat("#.000000");
+                    numberFormat.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
                     b.putDouble(getString(R.string.latitude_field), Double.parseDouble(numberFormat.format(latLng.latitude)));
                     b.putDouble(getString(R.string.longitude_field), Double.parseDouble(numberFormat.format(latLng.longitude)));
                     Intent intent = new Intent(SensorsMapActivity.this, AddCoordinateToExistingSensor.class);
@@ -477,6 +494,19 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
                     //finish();
                 })
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss()).show();
+        });
+
+        mClusterManager.setOnClusterClickListener(cluster -> {
+            String[] choices = cluster.getItems().stream().map(SensorMarker::getTitle).toArray(String[]::new);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(SensorsMapActivity.this);
+            builder.setTitle("Select a sensor:");
+            builder.setItems(choices, (dialog, which) -> {
+                String[] markerSplitParts = Utils.getModuleIdAndCustomerCodeFromMarkerTitle(Objects.requireNonNull(choices[which]));
+                openSensorModuleInfo(markerSplitParts[0], markerSplitParts[1]);
+            });
+            builder.show();
+            return true;
         });
     }
 
@@ -489,8 +519,18 @@ public class SensorsMapActivity extends AppCompatActivity implements NavigationV
         b.putString(getString(R.string.sensor_id_field), moduleId);
         b.putString(getString(R.string.customer_code_field), customerCode);
         intent.putExtras(b);
-        //finish();
 
         launchSensorModuleInfo.launch(intent);
+    }
+
+
+    private static class CustomClusterManager<T extends ClusterItem> extends ClusterManager<T> {
+
+        CustomClusterManager(Context context, GoogleMap map) {
+            super(context, map);
+            this.setRenderer(new DefaultClusterRenderer(context, map, this));
+            DefaultClusterRenderer<SensorMarker> renderer = (DefaultClusterRenderer<SensorMarker>) this.getRenderer();
+            renderer.setMinClusterSize(2);
+        }
     }
 }
