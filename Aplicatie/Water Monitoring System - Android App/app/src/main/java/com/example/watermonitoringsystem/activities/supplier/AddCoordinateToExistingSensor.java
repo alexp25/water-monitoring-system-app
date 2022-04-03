@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.watermonitoringsystem.R;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.api.ApiManager;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.models.firebasedb.SensorsPerCustomersData;
@@ -154,7 +155,7 @@ public class AddCoordinateToExistingSensor extends AppCompatActivity {
      * Go back to Google Map
      */
     private void goBackToSupplierSensorsMap() {
-        startActivity(new Intent(this, SupplierSensorsMapActivity.class));
+        startActivity(new Intent(this, SensorsMapActivity.class));
         finish();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.activities.customer;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.common.AboutAppActivity;
 import com.example.watermonitoringsystem.activities.common.AppSupportActivity;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.activities.common.SensorsModuleInfoActivity;
 import com.example.watermonitoringsystem.adapters.ModulesAdapter;
 import com.example.watermonitoringsystem.api.ApiManager;
@@ -123,7 +126,10 @@ public class CustomerDashboardActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_personal_data) {
+        if (id == R.id.nav_sensors) {
+            startActivity(new Intent(this, SensorsMapActivity.class));
+            finish();
+        } else if (id == R.id.nav_personal_data) {
             startActivity(new Intent(this, CustomerPersonalProfileActivity.class));
             finish();
         } else if (id == R.id.nav_complaints) {
@@ -136,7 +142,7 @@ public class CustomerDashboardActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_customer_dashboard);
@@ -151,7 +157,6 @@ public class CustomerDashboardActivity extends AppCompatActivity
         b.putString(getString(R.string.sensor_id_field), String.valueOf(moduleData.getSensorId()));
         b.putString(getString(R.string.customer_code_field), String.valueOf(moduleData.getCustomerCode()));
         intent.putExtras(b);
-        finish();
         startActivity(intent);
     }
 

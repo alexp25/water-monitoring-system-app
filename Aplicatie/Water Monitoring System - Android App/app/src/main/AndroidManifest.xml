@@ -49,7 +49,7 @@
             android:label="@string/title_forget_password_activity"
             android:theme="@style/Theme.WaterMonitoringSystem" />
         <activity
-            android:name=".activities.supplier.SupplierSensorsMapActivity"
+            android:name=".activities.common.SensorsMapActivity"
             android:label="@string/title_supplier_sensors_map_activity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

@@ -1,5 +1,7 @@
 package com.example.watermonitoringsystem.activities.common;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -23,7 +25,6 @@ import com.example.watermonitoringsystem.activities.customer.CustomerComplaintsA
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
 import com.example.watermonitoringsystem.activities.customer.CustomerPersonalProfileActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalveActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.utils.Constants;
@@ -133,7 +134,7 @@ public class AppSupportActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
 
         if (id == R.id.nav_sensors) {
-            startActivity(new Intent(this, SupplierSensorsMapActivity.class));
+            startActivity(new Intent(this, SensorsMapActivity.class));
             finish();
         } else if (id == R.id.nav_electrovalve) {
             startActivity(new Intent(this, SupplierElectrovalveActivity.class));
@@ -154,7 +155,7 @@ public class AppSupportActivity extends AppCompatActivity implements NavigationV
             startActivity(new Intent(this, AboutAppActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_app_support);

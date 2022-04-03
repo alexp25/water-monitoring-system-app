@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.watermonitoringsystem.R;
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
+import com.example.watermonitoringsystem.activities.common.SensorsMapActivity;
 import com.example.watermonitoringsystem.firebase.Database;
 import com.example.watermonitoringsystem.models.firebasedb.CustomerData;
 import com.example.watermonitoringsystem.models.firebasedb.SupplierData;
@@ -49,9 +49,9 @@ public class LoginFragment extends Fragment {
 
     private TextView mEmailLogin;
     private TextView mPasswordLogin;
-    private MqttReceiverThread mqttReceiverThread;
+    private static MqttReceiverThread mqttReceiverThread;
     private static MqttSenderThread mqttSenderThread;
-    private boolean isMqttStarted = false;
+    private static boolean isMqttStarted = false;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch cSwitch;
     private TextView cSwitchText;
@@ -180,7 +180,7 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void stopMqttConnections() {
+    public static void stopMqttConnections() {
         if (isMqttStarted) {
             isMqttStarted = false;
             mqttReceiverThread.setCallback(null);
@@ -315,7 +315,7 @@ public class LoginFragment extends Fragment {
                                 mPasswordLogin.setText("");
 
                                 // Go to supplier main activity
-                                final Intent intent = new Intent(requireContext(), SupplierSensorsMapActivity.class);
+                                final Intent intent = new Intent(requireContext(), SensorsMapActivity.class);
                                 Toast.makeText(requireView().getContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }

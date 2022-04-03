@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity">
+    tools:context="com.example.watermonitoringsystem.activities.common.SensorsMapActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,6 +17,8 @@
         android:theme="@style/Theme.WaterMonitoringSystem">
 
         <include layout="@layout/toolbar_supplier" />
+
+        <include layout="@layout/toolbar_customer" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

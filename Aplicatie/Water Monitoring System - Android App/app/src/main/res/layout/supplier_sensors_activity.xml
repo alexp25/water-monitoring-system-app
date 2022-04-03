@@ -24,7 +24,6 @@
         android:background="@drawable/background7"
         app:itemBackground="@android:color/transparent"
         app:itemIconTint="@color/menu_item_colors_when_pressed"
-        app:itemTextColor="@color/menu_item_colors_when_pressed"
-        app:menu="@menu/navigation_drawer_supplier"/>
+        app:itemTextColor="@color/menu_item_colors_when_pressed"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

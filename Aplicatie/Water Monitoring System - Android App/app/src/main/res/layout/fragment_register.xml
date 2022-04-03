@@ -37,6 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="20dp">
 
@@ -45,7 +47,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/register_field_height"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/your_name"
                     android:inputType="textCapWords"
@@ -59,6 +60,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
@@ -67,7 +70,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/register_field_height"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/e_mail"
                     android:inputType="textEmailAddress"
@@ -81,6 +83,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
@@ -89,7 +93,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/register_field_height"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/password"
                     android:inputType="textPassword"
@@ -103,6 +106,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
@@ -111,7 +116,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/register_field_height"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/re_type_password"
                     android:inputType="textPassword"
@@ -125,6 +129,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
@@ -133,7 +139,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/register_field_height"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_edittext_custom"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/customer_code"
                     android:inputType="numberDecimal"
@@ -165,13 +170,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@color/white"
                     app:counterTextColor="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/register_phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/register_field_height"
-                        android:background="@drawable/shape_edittext_custom"
                         android:fontFamily="@font/font_roboto_regular"
                         android:hint="@string/phone_number"
                         android:inputType="number"
@@ -187,6 +193,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
@@ -194,7 +202,6 @@
                     android:id="@+id/register_birthday_date"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/register_field_height"
-                    android:background="@drawable/shape_edittext_custom"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/font_roboto_regular"
                     android:hint="@string/birthday_date"

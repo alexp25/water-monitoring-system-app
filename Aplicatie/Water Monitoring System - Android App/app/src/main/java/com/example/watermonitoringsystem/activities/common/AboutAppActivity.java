@@ -1,12 +1,13 @@
 package com.example.watermonitoringsystem.activities.common;
 
+import static com.example.watermonitoringsystem.authentication.LogoutHelper.logoutFromActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,6 @@ import com.example.watermonitoringsystem.activities.customer.CustomerComplaintsA
 import com.example.watermonitoringsystem.activities.customer.CustomerDashboardActivity;
 import com.example.watermonitoringsystem.activities.customer.CustomerPersonalProfileActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierElectrovalveActivity;
-import com.example.watermonitoringsystem.activities.supplier.SupplierSensorsMapActivity;
 import com.example.watermonitoringsystem.activities.supplier.SupplierWaterPumpActivity;
 import com.example.watermonitoringsystem.authentication.SharedPrefsKeys;
 import com.example.watermonitoringsystem.utils.Constants;
@@ -121,7 +121,7 @@ public class AboutAppActivity extends AppCompatActivity implements NavigationVie
         int id = item.getItemId();
 
         if (id == R.id.nav_sensors) {
-            startActivity(new Intent(this, SupplierSensorsMapActivity.class));
+            startActivity(new Intent(this, SensorsMapActivity.class));
             finish();
         } else if (id == R.id.nav_electrovalve) {
             startActivity(new Intent(this, SupplierElectrovalveActivity.class));
@@ -142,7 +142,7 @@ public class AboutAppActivity extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(this, AppSupportActivity.class));
             finish();
         } else if (id == R.id.nav_sign_out) {
-            finish();
+            logoutFromActivity(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_about_app);
